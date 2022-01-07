@@ -17,8 +17,8 @@ export default class Home implements View {
     private buyInput: DomNode<HTMLInputElement>;
     private buyResult: DomNode;
 
-    private sellInput: DomNode<HTMLInputElement>;
-    private sellResult: DomNode;
+    // private sellInput: DomNode<HTMLInputElement>;
+    // private sellResult: DomNode;
 
     constructor() {
         Layout.current.title = "홈";
