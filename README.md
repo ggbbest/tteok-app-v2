@@ -22,10 +22,10 @@ https://nft.c4ei.net/
 하드헷 안써봤는데 아마도 써봐야 할듯
 그게 아니면 지갑 연동 로그인 모듈 , 가격  CEIK 구매 판매 따로 빼야 할듯
 
-- CEIK:                 [0x18814b01b5cc76f7043e10fd268cc4364df47da0](https://scope.klaytn.com/token/0x18814b01b5cc76f7043e10fd268cc4364df47da0)
+- CEIK:                 [0x18814b01b5cc76f7043e10fd268cc4364df47da0](https://v2.scope.klaytn.com/token/0x18814b01b5cc76f7043e10fd268cc4364df47da0)
 - CEIK POOL KLAY official : [0x50e746edaa283365136ed86a4e5dfddc6cd3cf9e](https://klayswap.com/exchange/pool/detail/0x50e746edaa283365136ed86a4e5dfddc6cd3cf9e)
-- CEIK POOL (InjeolmiPool clone) --> [0x20dF477bf0Aa41B6Ae3aC27aC3D8d87FE0066E63](https://scope.klaytn.com/account/0x20dF477bf0Aa41B6Ae3aC27aC3D8d87FE0066E63?tabId=tokenBalance)
-- Airdrop:              [0x280c0Ea797dCC1b1292975EB3Edb1886F89a37CD](https://scope.klaytn.com/account/0x280c0Ea797dCC1b1292975EB3Edb1886F89a37CD)
-- FirstcomeAirdrop:     [0xE1eFF4230c2cf812e4f5214ACe5a1888f2b1A68e](https://scope.klaytn.com/account/0xE1eFF4230c2cf812e4f5214ACe5a1888f2b1A68e)
-- EachAirdrop:          [0xDF026cfefc4EE6CE729312d65c5aB21eCCf3b6C3](https://scope.klaytn.com/account/0xDF026cfefc4EE6CE729312d65c5aB21eCCf3b6C3)
+- CEIK POOL (InjeolmiPool clone) --> [0x20dF477bf0Aa41B6Ae3aC27aC3D8d87FE0066E63](https://v2.scope.klaytn.com/account/0x20dF477bf0Aa41B6Ae3aC27aC3D8d87FE0066E63?tabId=tokenBalance)
+- Airdrop:              [0x280c0Ea797dCC1b1292975EB3Edb1886F89a37CD](https://v2.scope.klaytn.com/account/0x280c0Ea797dCC1b1292975EB3Edb1886F89a37CD)
+- FirstcomeAirdrop:     [0xE1eFF4230c2cf812e4f5214ACe5a1888f2b1A68e](https://v2.scope.klaytn.com/account/0xE1eFF4230c2cf812e4f5214ACe5a1888f2b1A68e)
+- EachAirdrop:          [0xDF026cfefc4EE6CE729312d65c5aB21eCCf3b6C3](https://v2.scope.klaytn.com/account/0xDF026cfefc4EE6CE729312d65c5aB21eCCf3b6C3)
 
