@@ -10,3 +10,9 @@ VSCode를 열어, Ctrl + Shift + B로 빌드를 수행합니다.
 GitHub 저장소에 Push합니다.
 
 https://ggbbest.github.io/tteok-app-v2/
+
+cp -r /home/dev/www/sol/tteok-app-v2/docs/* /home/dev/www/sol/www/public
+cd /home/dev/www/sol/www/
+npm start
+
+https://nft.c4ei.net/
