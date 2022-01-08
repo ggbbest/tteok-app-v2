@@ -6,7 +6,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "ijm",
+      "name": "ceik",
       "outputs": [
         {
           "name": "",
@@ -20,7 +20,7 @@
     {
       "constant": false,
       "inputs": [],
-      "name": "withdrawIjm",
+      "name": "withdrawceik",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -131,7 +131,7 @@
     {
       "inputs": [
         {
-          "name": "_ijm",
+          "name": "_ceik",
           "type": "address"
         }
       ],

@@ -23,14 +23,14 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
 interface InjeolmiPoolInterface extends ethers.utils.Interface {
   functions: {
-    "ijm()": FunctionFragment;
-    "swapToIJM()": FunctionFragment;
+    "ceik()": FunctionFragment;
+    "swapToCEIK()": FunctionFragment;
     "addLiquidity()": FunctionFragment;
     "swapToKlay(uint256)": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "ijm", values?: undefined): string;
-  encodeFunctionData(functionFragment: "swapToIJM", values?: undefined): string;
+  encodeFunctionData(functionFragment: "ceik", values?: undefined): string;
+  encodeFunctionData(functionFragment: "swapToCEIK", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "addLiquidity",
     values?: undefined
@@ -40,8 +40,8 @@ interface InjeolmiPoolInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
 
-  decodeFunctionResult(functionFragment: "ijm", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "swapToIJM", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "ceik", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "swapToCEIK", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "addLiquidity",
     data: BytesLike
@@ -49,11 +49,11 @@ interface InjeolmiPoolInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "swapToKlay", data: BytesLike): Result;
 
   events: {
-    "SwapToIJM(address,uint256)": EventFragment;
+    "SwapToCEIK(address,uint256)": EventFragment;
     "SwapToKlay(address,uint256)": EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "SwapToIJM"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "SwapToCEIK"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SwapToKlay"): EventFragment;
 }
 
@@ -71,13 +71,13 @@ export class InjeolmiPool extends Contract {
   interface: InjeolmiPoolInterface;
 
   functions: {
-    ijm(overrides?: CallOverrides): Promise<[string]>;
+    ceik(overrides?: CallOverrides): Promise<[string]>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<[string]>;
+    "ceik()"(overrides?: CallOverrides): Promise<[string]>;
 
-    swapToIJM(overrides?: PayableOverrides): Promise<ContractTransaction>;
+    swapToCEIK(overrides?: PayableOverrides): Promise<ContractTransaction>;
 
-    "swapToIJM()"(overrides?: PayableOverrides): Promise<ContractTransaction>;
+    "swapToCEIK()"(overrides?: PayableOverrides): Promise<ContractTransaction>;
 
     addLiquidity(overrides?: PayableOverrides): Promise<ContractTransaction>;
 
@@ -96,13 +96,13 @@ export class InjeolmiPool extends Contract {
     ): Promise<ContractTransaction>;
   };
 
-  ijm(overrides?: CallOverrides): Promise<string>;
+  ceik(overrides?: CallOverrides): Promise<string>;
 
-  "ijm()"(overrides?: CallOverrides): Promise<string>;
+  "ceik()"(overrides?: CallOverrides): Promise<string>;
 
-  swapToIJM(overrides?: PayableOverrides): Promise<ContractTransaction>;
+  swapToCEIK(overrides?: PayableOverrides): Promise<ContractTransaction>;
 
-  "swapToIJM()"(overrides?: PayableOverrides): Promise<ContractTransaction>;
+  "swapToCEIK()"(overrides?: PayableOverrides): Promise<ContractTransaction>;
 
   addLiquidity(overrides?: PayableOverrides): Promise<ContractTransaction>;
 
@@ -119,13 +119,13 @@ export class InjeolmiPool extends Contract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    ijm(overrides?: CallOverrides): Promise<string>;
+    ceik(overrides?: CallOverrides): Promise<string>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<string>;
+    "ceik()"(overrides?: CallOverrides): Promise<string>;
 
-    swapToIJM(overrides?: CallOverrides): Promise<void>;
+    swapToCEIK(overrides?: CallOverrides): Promise<void>;
 
-    "swapToIJM()"(overrides?: CallOverrides): Promise<void>;
+    "swapToCEIK()"(overrides?: CallOverrides): Promise<void>;
 
     addLiquidity(overrides?: CallOverrides): Promise<void>;
 
@@ -140,19 +140,19 @@ export class InjeolmiPool extends Contract {
   };
 
   filters: {
-    SwapToIJM(user: string | null, amount: null): EventFilter;
+    SwapToCEIK(user: string | null, amount: null): EventFilter;
 
     SwapToKlay(user: string | null, amount: null): EventFilter;
   };
 
   estimateGas: {
-    ijm(overrides?: CallOverrides): Promise<BigNumber>;
+    ceik(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "ceik()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    swapToIJM(overrides?: PayableOverrides): Promise<BigNumber>;
+    swapToCEIK(overrides?: PayableOverrides): Promise<BigNumber>;
 
-    "swapToIJM()"(overrides?: PayableOverrides): Promise<BigNumber>;
+    "swapToCEIK()"(overrides?: PayableOverrides): Promise<BigNumber>;
 
     addLiquidity(overrides?: PayableOverrides): Promise<BigNumber>;
 
@@ -167,13 +167,13 @@ export class InjeolmiPool extends Contract {
   };
 
   populateTransaction: {
-    ijm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    ceik(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "ceik()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    swapToIJM(overrides?: PayableOverrides): Promise<PopulatedTransaction>;
+    swapToCEIK(overrides?: PayableOverrides): Promise<PopulatedTransaction>;
 
-    "swapToIJM()"(overrides?: PayableOverrides): Promise<PopulatedTransaction>;
+    "swapToCEIK()"(overrides?: PayableOverrides): Promise<PopulatedTransaction>;
 
     addLiquidity(overrides?: PayableOverrides): Promise<PopulatedTransaction>;
 

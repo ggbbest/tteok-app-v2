@@ -5,7 +5,7 @@ import Contract from "./Contract";
 class FirstcomeAirdropContract extends Contract {
 
     constructor() {
-        super("0x7D197D87Aa79E27bcdc3a62f819329deC6F81Ec2", FirstcomeAirdropArtifact.abi);
+        super("0xE1eFF4230c2cf812e4f5214ACe5a1888f2b1A68e", FirstcomeAirdropArtifact.abi);
     }
 
     public async airdropAmount(): Promise<BigNumber> {

@@ -13,14 +13,14 @@ export class InjeolmiPool__factory extends ContractFactory {
     super(_abi, _bytecode, signer);
   }
 
-  deploy(_ijm: string, overrides?: Overrides): Promise<InjeolmiPool> {
-    return super.deploy(_ijm, overrides || {}) as Promise<InjeolmiPool>;
+  deploy(_ceik: string, overrides?: Overrides): Promise<InjeolmiPool> {
+    return super.deploy(_ceik, overrides || {}) as Promise<InjeolmiPool>;
   }
   getDeployTransaction(
-    _ijm: string,
+    _ceik: string,
     overrides?: Overrides
   ): TransactionRequest {
-    return super.getDeployTransaction(_ijm, overrides || {});
+    return super.getDeployTransaction(_ceik, overrides || {});
   }
   attach(address: string): InjeolmiPool {
     return super.attach(address) as InjeolmiPool;
@@ -40,7 +40,7 @@ const _abi = [
   {
     constant: true,
     inputs: [],
-    name: "ijm",
+    name: "ceik",
     outputs: [
       {
         name: "",
@@ -54,7 +54,7 @@ const _abi = [
   {
     constant: false,
     inputs: [],
-    name: "swapToIJM",
+    name: "swapToCEIK",
     outputs: [],
     payable: true,
     stateMutability: "payable",
@@ -86,7 +86,7 @@ const _abi = [
   {
     inputs: [
       {
-        name: "_ijm",
+        name: "_ceik",
         type: "address",
       },
     ],
@@ -113,7 +113,7 @@ const _abi = [
         type: "uint256",
       },
     ],
-    name: "SwapToIJM",
+    name: "SwapToCEIK",
     type: "event",
   },
   {

@@ -7,7 +7,7 @@
     "language": "Solidity",
     "sources": {
       "contracts/FirstcomeAirdrop.sol": {
-        "content": "pragma solidity ^0.5.6;\r\n\r\nimport \"./klaytn-contracts/ownership/Ownable.sol\";\r\nimport \"./klaytn-contracts/math/SafeMath.sol\";\r\nimport \"./interfaces/IInjeolmi.sol\";\r\n\r\ncontract FirstcomeAirdrop is Ownable {\r\n    using SafeMath for uint256;\r\n\r\n    IInjeolmi public ijm;\r\n    uint256 public season = 0;\r\n    uint256 public airdropAmount = 1000 * 1e8;\r\n    mapping(uint256 => mapping(address => bool)) public droped;\r\n\r\n    constructor(IInjeolmi _ijm) public {\r\n        ijm = _ijm;\r\n    }\r\n\r\n    function setAirdropAmount(uint256 amount) external onlyOwner {\r\n        airdropAmount = amount;\r\n    }\r\n\r\n    function newSeason() external onlyOwner {\r\n        season = season.add(1);\r\n    }\r\n\r\n    function airdrop() external {\r\n        require(droped[season][msg.sender] != true);\r\n        ijm.transfer(msg.sender, airdropAmount);\r\n        droped[season][msg.sender] = true;\r\n    }\r\n}\r\n"
+        "content": "pragma solidity ^0.5.6;\r\n\r\nimport \"./klaytn-contracts/ownership/Ownable.sol\";\r\nimport \"./klaytn-contracts/math/SafeMath.sol\";\r\nimport \"./interfaces/IInjeolmi.sol\";\r\n\r\ncontract FirstcomeAirdrop is Ownable {\r\n    using SafeMath for uint256;\r\n\r\n    IInjeolmi public ceik;\r\n    uint256 public season = 0;\r\n    uint256 public airdropAmount = 1000 * 1e8;\r\n    mapping(uint256 => mapping(address => bool)) public droped;\r\n\r\n    constructor(IInjeolmi _ceik) public {\r\n        ceik = _ceik;\r\n    }\r\n\r\n    function setAirdropAmount(uint256 amount) external onlyOwner {\r\n        airdropAmount = amount;\r\n    }\r\n\r\n    function newSeason() external onlyOwner {\r\n        season = season.add(1);\r\n    }\r\n\r\n    function airdrop() external {\r\n        require(droped[season][msg.sender] != true);\r\n        ceik.transfer(msg.sender, airdropAmount);\r\n        droped[season][msg.sender] = true;\r\n    }\r\n}\r\n"
       },
       "contracts/klaytn-contracts/ownership/Ownable.sol": {
         "content": "pragma solidity ^0.5.0;\n\n/**\n * @dev Contract module which provides a basic access control mechanism, where\n * there is an account (an owner) that can be granted exclusive access to\n * specific functions.\n *\n * This module is used through inheritance. It will make available the modifier\n * `onlyOwner`, which can be aplied to your functions to restrict their use to\n * the owner.\n */\ncontract Ownable {\n    address payable private _owner;\n\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\n\n    /**\n     * @dev Initializes the contract setting the deployer as the initial owner.\n     */\n    constructor () internal {\n        _owner = msg.sender;\n        emit OwnershipTransferred(address(0), _owner);\n    }\n\n    /**\n     * @dev Returns the address of the current owner.\n     */\n    function owner() public view returns (address payable) {\n        return _owner;\n    }\n\n    /**\n     * @dev Throws if called by any account other than the owner.\n     */\n    modifier onlyOwner() {\n        require(isOwner(), \"Ownable: caller is not the owner\");\n        _;\n    }\n\n    /**\n     * @dev Returns true if the caller is the current owner.\n     */\n    function isOwner() public view returns (bool) {\n        return msg.sender == _owner;\n    }\n\n    /**\n     * @dev Leaves the contract without owner. It will not be possible to call\n     * `onlyOwner` functions anymore. Can only be called by the current owner.\n     *\n     * > Note: Renouncing ownership will leave the contract without an owner,\n     * thereby removing any functionality that is only available to the owner.\n     */\n    function renounceOwnership() public onlyOwner {\n        emit OwnershipTransferred(_owner, address(0));\n        _owner = address(0);\n    }\n\n    /**\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\n     * Can only be called by the current owner.\n     */\n    function transferOwnership(address payable newOwner) public onlyOwner {\n        _transferOwnership(newOwner);\n    }\n\n    /**\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\n     */\n    function _transferOwnership(address payable newOwner) internal {\n        require(newOwner != address(0), \"Ownable: new owner is the zero address\");\n        emit OwnershipTransferred(_owner, newOwner);\n        _owner = newOwner;\n    }\n}\n"
@@ -47,7 +47,7 @@
             {
               "constant": true,
               "inputs": [],
-              "name": "ijm",
+              "name": "ceik",
               "outputs": [
                 {
                   "name": "",
@@ -195,7 +195,7 @@
             {
               "inputs": [
                 {
-                  "name": "_ijm",
+                  "name": "_ceik",
                   "type": "address"
                 }
               ],
@@ -238,7 +238,7 @@
               "airdrop()": "3884d635",
               "airdropAmount()": "fc2ea8a5",
               "droped(uint256,address)": "8998551d",
-              "ijm()": "110d4025",
+              "ceik()": "110d4025",
               "isOwner()": "8f32d59b",
               "newSeason()": "1974e0bc",
               "owner()": "8da5cb5b",
@@ -786,7 +786,7 @@
                 {
                   "constant": false,
                   "id": 11,
-                  "name": "ijm",
+                  "name": "ceik",
                   "nodeType": "VariableDeclaration",
                   "scope": 93,
                   "src": "246:20:0",
@@ -1015,7 +1015,7 @@
                           "leftHandSide": {
                             "argumentTypes": null,
                             "id": 30,
-                            "name": "ijm",
+                            "name": "ceik",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 11,
@@ -1030,7 +1030,7 @@
                           "rightHandSide": {
                             "argumentTypes": null,
                             "id": 31,
-                            "name": "_ijm",
+                            "name": "_ceik",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 27,
@@ -1066,7 +1066,7 @@
                       {
                         "constant": false,
                         "id": 27,
-                        "name": "_ijm",
+                        "name": "_ceik",
                         "nodeType": "VariableDeclaration",
                         "scope": 35,
                         "src": "432:14:0",
@@ -1619,7 +1619,7 @@
                             "expression": {
                               "argumentTypes": null,
                               "id": 74,
-                              "name": "ijm",
+                              "name": "ceik",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 11,

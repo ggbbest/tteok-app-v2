@@ -6,7 +6,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "ijm",
+      "name": "ceik",
       "outputs": [
         {
           "name": "",
@@ -48,7 +48,7 @@
     {
       "inputs": [
         {
-          "name": "_ijm",
+          "name": "_ceik",
           "type": "address"
         },
         {

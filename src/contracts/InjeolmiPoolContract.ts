@@ -7,11 +7,11 @@ import InjeolmiContract from "./InjeolmiContract";
 class InjeolmiPoolContract extends Contract {
 
     constructor() {
-        super("0xcefaBd4B6544422D74a4645CDd0a3624E36661AA", InjeolmiPoolArtifact.abi);
+        super("0x20df477bf0aa41b6ae3ac27ac3d8d87fe0066e63", InjeolmiPoolArtifact.abi);
     }
 
-    public async swapToIJM(value: BigNumber) {
-        await this.runWalletMethodWithValue(value, "swapToIJM");
+    public async swapToCEIK(value: BigNumber) {
+        await this.runWalletMethodWithValue(value, "swapToCEIK");
     }
 
     public async swapToKlay(amount: BigNumber) {

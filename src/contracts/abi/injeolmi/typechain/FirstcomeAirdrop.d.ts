@@ -22,7 +22,7 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
 interface FirstcomeAirdropInterface extends ethers.utils.Interface {
   functions: {
-    "ijm()": FunctionFragment;
+    "ceik()": FunctionFragment;
     "newSeason()": FunctionFragment;
     "airdrop()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
@@ -35,7 +35,7 @@ interface FirstcomeAirdropInterface extends ethers.utils.Interface {
     "airdropAmount()": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "ijm", values?: undefined): string;
+  encodeFunctionData(functionFragment: "ceik", values?: undefined): string;
   encodeFunctionData(functionFragment: "newSeason", values?: undefined): string;
   encodeFunctionData(functionFragment: "airdrop", values?: undefined): string;
   encodeFunctionData(
@@ -62,7 +62,7 @@ interface FirstcomeAirdropInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
 
-  decodeFunctionResult(functionFragment: "ijm", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "ceik", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "newSeason", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "airdrop", data: BytesLike): Result;
   decodeFunctionResult(
@@ -107,9 +107,9 @@ export class FirstcomeAirdrop extends Contract {
   interface: FirstcomeAirdropInterface;
 
   functions: {
-    ijm(overrides?: CallOverrides): Promise<[string]>;
+    ceik(overrides?: CallOverrides): Promise<[string]>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<[string]>;
+    "ceik()"(overrides?: CallOverrides): Promise<[string]>;
 
     newSeason(overrides?: Overrides): Promise<ContractTransaction>;
 
@@ -172,9 +172,9 @@ export class FirstcomeAirdrop extends Contract {
     "airdropAmount()"(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
-  ijm(overrides?: CallOverrides): Promise<string>;
+  ceik(overrides?: CallOverrides): Promise<string>;
 
-  "ijm()"(overrides?: CallOverrides): Promise<string>;
+  "ceik()"(overrides?: CallOverrides): Promise<string>;
 
   newSeason(overrides?: Overrides): Promise<ContractTransaction>;
 
@@ -237,9 +237,9 @@ export class FirstcomeAirdrop extends Contract {
   "airdropAmount()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
-    ijm(overrides?: CallOverrides): Promise<string>;
+    ceik(overrides?: CallOverrides): Promise<string>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<string>;
+    "ceik()"(overrides?: CallOverrides): Promise<string>;
 
     newSeason(overrides?: CallOverrides): Promise<void>;
 
@@ -310,9 +310,9 @@ export class FirstcomeAirdrop extends Contract {
   };
 
   estimateGas: {
-    ijm(overrides?: CallOverrides): Promise<BigNumber>;
+    ceik(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "ceik()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     newSeason(overrides?: Overrides): Promise<BigNumber>;
 
@@ -376,9 +376,9 @@ export class FirstcomeAirdrop extends Contract {
   };
 
   populateTransaction: {
-    ijm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    ceik(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "ceik()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     newSeason(overrides?: Overrides): Promise<PopulatedTransaction>;
 

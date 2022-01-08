@@ -18,22 +18,22 @@ export default class Junior implements View {
                     el("a", { click: () => ViewUtil.go("/") },
                         el("img", { src: "/images/injeolmi.png", height: "40px" })
                     ),
-                    el("h1", "인절미 쥬니어"),
+                    el("h1", "세이크 쥬니어"),
                 )
             ),
             el("section",
-                el("h2", "인절미 팬게임"),
+                el("h2", "세이크 팬게임"),
                 el(".pangame-list",
                     el("a", { href: "https://flappy-injeolmi.netlify.app/", target: "_blank" },
                         el(".card",
                             el(".content",
-                                el("h3", "플래피 인절미"),
+                                el("h3", "플래피 세이크"),
                                 el("img", { src: "/images/junior/flappy.png" }),
-                                el(".description", "'학성참새'가 만든 플래피 인절미")
+                                el(".description", "'학성참새'가 만든 플래피 세이크")
                             )
                         )
                     ),
-                    el("a", { href: "ijmclassic.itch.io/ultrarisk", target: "_blank" },
+                    el("a", { href: "ceikclassic.itch.io/ultrarisk", target: "_blank" },
                         el(".card",
                             el(".content",
                                 el("h3", "울트라리스크 피하기V1"),

@@ -23,8 +23,8 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
 interface InitialSaleInterface extends ethers.utils.Interface {
   functions: {
-    "ijm()": FunctionFragment;
-    "withdrawIjm()": FunctionFragment;
+    "ceik()": FunctionFragment;
+    "withdrawceik()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "owner()": FunctionFragment;
     "isOwner()": FunctionFragment;
@@ -35,9 +35,9 @@ interface InitialSaleInterface extends ethers.utils.Interface {
     "transferOwnership(address)": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "ijm", values?: undefined): string;
+  encodeFunctionData(functionFragment: "ceik", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "withdrawIjm",
+    functionFragment: "withdrawceik",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -61,9 +61,9 @@ interface InitialSaleInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
 
-  decodeFunctionResult(functionFragment: "ijm", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "ceik", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "withdrawIjm",
+    functionFragment: "withdrawceik",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -105,13 +105,13 @@ export class InitialSale extends Contract {
   interface: InitialSaleInterface;
 
   functions: {
-    ijm(overrides?: CallOverrides): Promise<[string]>;
+    ceik(overrides?: CallOverrides): Promise<[string]>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<[string]>;
+    "ceik()"(overrides?: CallOverrides): Promise<[string]>;
 
-    withdrawIjm(overrides?: Overrides): Promise<ContractTransaction>;
+    withdrawceik(overrides?: Overrides): Promise<ContractTransaction>;
 
-    "withdrawIjm()"(overrides?: Overrides): Promise<ContractTransaction>;
+    "withdrawceik()"(overrides?: Overrides): Promise<ContractTransaction>;
 
     renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>;
 
@@ -164,13 +164,13 @@ export class InitialSale extends Contract {
     ): Promise<ContractTransaction>;
   };
 
-  ijm(overrides?: CallOverrides): Promise<string>;
+  ceik(overrides?: CallOverrides): Promise<string>;
 
-  "ijm()"(overrides?: CallOverrides): Promise<string>;
+  "ceik()"(overrides?: CallOverrides): Promise<string>;
 
-  withdrawIjm(overrides?: Overrides): Promise<ContractTransaction>;
+  withdrawceik(overrides?: Overrides): Promise<ContractTransaction>;
 
-  "withdrawIjm()"(overrides?: Overrides): Promise<ContractTransaction>;
+  "withdrawceik()"(overrides?: Overrides): Promise<ContractTransaction>;
 
   renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>;
 
@@ -223,13 +223,13 @@ export class InitialSale extends Contract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    ijm(overrides?: CallOverrides): Promise<string>;
+    ceik(overrides?: CallOverrides): Promise<string>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<string>;
+    "ceik()"(overrides?: CallOverrides): Promise<string>;
 
-    withdrawIjm(overrides?: CallOverrides): Promise<void>;
+    withdrawceik(overrides?: CallOverrides): Promise<void>;
 
-    "withdrawIjm()"(overrides?: CallOverrides): Promise<void>;
+    "withdrawceik()"(overrides?: CallOverrides): Promise<void>;
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
@@ -284,13 +284,13 @@ export class InitialSale extends Contract {
   };
 
   estimateGas: {
-    ijm(overrides?: CallOverrides): Promise<BigNumber>;
+    ceik(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "ceik()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    withdrawIjm(overrides?: Overrides): Promise<BigNumber>;
+    withdrawceik(overrides?: Overrides): Promise<BigNumber>;
 
-    "withdrawIjm()"(overrides?: Overrides): Promise<BigNumber>;
+    "withdrawceik()"(overrides?: Overrides): Promise<BigNumber>;
 
     renounceOwnership(overrides?: Overrides): Promise<BigNumber>;
 
@@ -338,13 +338,13 @@ export class InitialSale extends Contract {
   };
 
   populateTransaction: {
-    ijm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    ceik(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "ceik()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    withdrawIjm(overrides?: Overrides): Promise<PopulatedTransaction>;
+    withdrawceik(overrides?: Overrides): Promise<PopulatedTransaction>;
 
-    "withdrawIjm()"(overrides?: Overrides): Promise<PopulatedTransaction>;
+    "withdrawceik()"(overrides?: Overrides): Promise<PopulatedTransaction>;
 
     renounceOwnership(overrides?: Overrides): Promise<PopulatedTransaction>;
 

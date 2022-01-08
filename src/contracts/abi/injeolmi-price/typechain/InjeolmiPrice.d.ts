@@ -21,16 +21,16 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
 interface InjeolmiPriceInterface extends ethers.utils.Interface {
   functions: {
-    "ijm()": FunctionFragment;
+    "ceik()": FunctionFragment;
     "pool()": FunctionFragment;
     "price()": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "ijm", values?: undefined): string;
+  encodeFunctionData(functionFragment: "ceik", values?: undefined): string;
   encodeFunctionData(functionFragment: "pool", values?: undefined): string;
   encodeFunctionData(functionFragment: "price", values?: undefined): string;
 
-  decodeFunctionResult(functionFragment: "ijm", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "ceik", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pool", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "price", data: BytesLike): Result;
 
@@ -51,9 +51,9 @@ export class InjeolmiPrice extends Contract {
   interface: InjeolmiPriceInterface;
 
   functions: {
-    ijm(overrides?: CallOverrides): Promise<[string]>;
+    ceik(overrides?: CallOverrides): Promise<[string]>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<[string]>;
+    "ceik()"(overrides?: CallOverrides): Promise<[string]>;
 
     pool(overrides?: CallOverrides): Promise<[string]>;
 
@@ -64,9 +64,9 @@ export class InjeolmiPrice extends Contract {
     "price()"(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
-  ijm(overrides?: CallOverrides): Promise<string>;
+  ceik(overrides?: CallOverrides): Promise<string>;
 
-  "ijm()"(overrides?: CallOverrides): Promise<string>;
+  "ceik()"(overrides?: CallOverrides): Promise<string>;
 
   pool(overrides?: CallOverrides): Promise<string>;
 
@@ -77,9 +77,9 @@ export class InjeolmiPrice extends Contract {
   "price()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
-    ijm(overrides?: CallOverrides): Promise<string>;
+    ceik(overrides?: CallOverrides): Promise<string>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<string>;
+    "ceik()"(overrides?: CallOverrides): Promise<string>;
 
     pool(overrides?: CallOverrides): Promise<string>;
 
@@ -93,9 +93,9 @@ export class InjeolmiPrice extends Contract {
   filters: {};
 
   estimateGas: {
-    ijm(overrides?: CallOverrides): Promise<BigNumber>;
+    ceik(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "ceik()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     pool(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -107,9 +107,9 @@ export class InjeolmiPrice extends Contract {
   };
 
   populateTransaction: {
-    ijm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    ceik(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "ceik()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     pool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

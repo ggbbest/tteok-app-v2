@@ -5,7 +5,7 @@
     "abi": [{
             "constant": true,
             "inputs": [],
-            "name": "ijm",
+            "name": "ceik",
             "outputs": [{
                 "name": "",
                 "type": "address"
@@ -135,7 +135,7 @@
         },
         {
             "inputs": [{
-                "name": "_ijm",
+                "name": "_ceik",
                 "type": "address"
             }],
             "payable": false,

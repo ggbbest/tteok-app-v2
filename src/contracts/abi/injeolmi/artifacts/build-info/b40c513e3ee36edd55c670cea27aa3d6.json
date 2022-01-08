@@ -7,7 +7,7 @@
     "language": "Solidity",
     "sources": {
       "contracts/Airdrop.sol": {
-        "content": "pragma solidity ^0.5.6;\r\n\r\nimport \"./klaytn-contracts/ownership/Ownable.sol\";\r\nimport \"./klaytn-contracts/math/SafeMath.sol\";\r\nimport \"./interfaces/IInjeolmi.sol\";\r\n\r\ncontract Airdrop is Ownable {\r\n    using SafeMath for uint256;\r\n\r\n    IInjeolmi public ijm;\r\n\r\n    constructor(IInjeolmi _ijm) public {\r\n        ijm = _ijm;\r\n    }\r\n\r\n    function airdrop(address[] calldata to, uint256 amount) payable external onlyOwner {\r\n        uint256 len = to.length;\r\n        for (uint256 i = 0; i < len; i = i.add(1)) {\r\n            ijm.transfer(to[i], amount);\r\n        }\r\n    }\r\n}\r\n"
+        "content": "pragma solidity ^0.5.6;\r\n\r\nimport \"./klaytn-contracts/ownership/Ownable.sol\";\r\nimport \"./klaytn-contracts/math/SafeMath.sol\";\r\nimport \"./interfaces/IInjeolmi.sol\";\r\n\r\ncontract Airdrop is Ownable {\r\n    using SafeMath for uint256;\r\n\r\n    IInjeolmi public ceik;\r\n\r\n    constructor(IInjeolmi _ceik) public {\r\n        ceik = _ceik;\r\n    }\r\n\r\n    function airdrop(address[] calldata to, uint256 amount) payable external onlyOwner {\r\n        uint256 len = to.length;\r\n        for (uint256 i = 0; i < len; i = i.add(1)) {\r\n            ceik.transfer(to[i], amount);\r\n        }\r\n    }\r\n}\r\n"
       },
       "contracts/klaytn-contracts/ownership/Ownable.sol": {
         "content": "pragma solidity ^0.5.0;\n\n/**\n * @dev Contract module which provides a basic access control mechanism, where\n * there is an account (an owner) that can be granted exclusive access to\n * specific functions.\n *\n * This module is used through inheritance. It will make available the modifier\n * `onlyOwner`, which can be aplied to your functions to restrict their use to\n * the owner.\n */\ncontract Ownable {\n    address payable private _owner;\n\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\n\n    /**\n     * @dev Initializes the contract setting the deployer as the initial owner.\n     */\n    constructor () internal {\n        _owner = msg.sender;\n        emit OwnershipTransferred(address(0), _owner);\n    }\n\n    /**\n     * @dev Returns the address of the current owner.\n     */\n    function owner() public view returns (address payable) {\n        return _owner;\n    }\n\n    /**\n     * @dev Throws if called by any account other than the owner.\n     */\n    modifier onlyOwner() {\n        require(isOwner(), \"Ownable: caller is not the owner\");\n        _;\n    }\n\n    /**\n     * @dev Returns true if the caller is the current owner.\n     */\n    function isOwner() public view returns (bool) {\n        return msg.sender == _owner;\n    }\n\n    /**\n     * @dev Leaves the contract without owner. It will not be possible to call\n     * `onlyOwner` functions anymore. Can only be called by the current owner.\n     *\n     * > Note: Renouncing ownership will leave the contract without an owner,\n     * thereby removing any functionality that is only available to the owner.\n     */\n    function renounceOwnership() public onlyOwner {\n        emit OwnershipTransferred(_owner, address(0));\n        _owner = address(0);\n    }\n\n    /**\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\n     * Can only be called by the current owner.\n     */\n    function transferOwnership(address payable newOwner) public onlyOwner {\n        _transferOwnership(newOwner);\n    }\n\n    /**\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\n     */\n    function _transferOwnership(address payable newOwner) internal {\n        require(newOwner != address(0), \"Ownable: new owner is the zero address\");\n        emit OwnershipTransferred(_owner, newOwner);\n        _owner = newOwner;\n    }\n}\n"
@@ -19,13 +19,13 @@
         "content": "pragma solidity ^0.5.6;\r\n\r\ninterface IInjeolmi {\r\n\r\n    event Transfer(address indexed from, address indexed to, uint256 amount);\r\n    event Approval(address indexed owner, address indexed spender, uint256 amount);\r\n\r\n    function name() external pure returns (string memory);\r\n    function symbol() external pure returns (string memory);\r\n    function decimals() external pure returns (uint8);\r\n    function totalSupply() external pure returns (uint256);\r\n\r\n    function excluded(address user) external view returns (bool);\r\n    function _userInfo(address user) external view returns (uint256 lastBalance, uint256 lastMultiplier, uint256 resettingCount);\r\n\r\n    function balanceOf(address owner) external view returns (uint256 balance);\r\n    function transfer(address to, uint256 amount) external returns (bool success);\r\n    function transferFrom(address from, address to, uint256 amount) external returns (bool success);\r\n    function approve(address spender, uint256 amount) external returns (bool success);\r\n    function allowance(address owner, address spender) external view returns (uint256 remaining);\r\n}\r\n"
       },
       "contracts/InjeolmiPool.sol": {
-        "content": "pragma solidity ^0.5.6;\r\n\r\nimport \"./klaytn-contracts/math/SafeMath.sol\";\r\nimport \"./interfaces/IInjeolmiPool.sol\";\r\nimport \"./interfaces/IInjeolmi.sol\";\r\n\r\ncontract InjeolmiPool is IInjeolmiPool {\r\n    using SafeMath for uint256;\r\n\r\n    IInjeolmi public ijm;\r\n\r\n    constructor(IInjeolmi _ijm) public {\r\n        ijm = _ijm;\r\n    }\r\n\r\n    function () payable external {}\r\n\r\n    function swapToIJM() external payable {\r\n        uint256 newKlay = address(this).balance;\r\n        uint256 lastIJM = ijm.balanceOf(address(this));\r\n\r\n        uint256 newIJM = (newKlay.sub(msg.value)).mul(lastIJM).div(newKlay);\r\n\r\n        ijm.transfer(msg.sender, lastIJM.sub(newIJM));\r\n\r\n        emit SwapToIJM(msg.sender, msg.value);\r\n    }\r\n\r\n    function swapToKlay(uint256 amount) external {\r\n        uint256 lastKlay = address(this).balance;\r\n        uint256 lastIJM = ijm.balanceOf(address(this));\r\n\r\n        uint256 newKlay = lastIJM.mul(lastKlay).div(lastIJM.add(amount.mul(9).div(10)));\r\n\r\n        ijm.transferFrom(msg.sender, address(this), amount);\r\n        msg.sender.transfer(lastKlay.sub(newKlay));\r\n\r\n        emit SwapToKlay(msg.sender, amount);\r\n    }\r\n\r\n    function addLiquidity() external payable {\r\n        uint256 lastKlay = (address(this).balance).sub(msg.value);\r\n        uint256 lastIJM = ijm.balanceOf(address(this));\r\n\r\n        uint256 inputIJM = lastIJM.mul(msg.value).div(lastKlay);\r\n        if(ijm.excluded(msg.sender)) {\r\n            ijm.transferFrom(msg.sender, address(this), inputIJM);\r\n        } else {\r\n            ijm.transferFrom(msg.sender, address(this), inputIJM.mul(10).div(9));\r\n        }\r\n    }\r\n}\r\n"
+        "content": "pragma solidity ^0.5.6;\r\n\r\nimport \"./klaytn-contracts/math/SafeMath.sol\";\r\nimport \"./interfaces/IInjeolmiPool.sol\";\r\nimport \"./interfaces/IInjeolmi.sol\";\r\n\r\ncontract InjeolmiPool is IInjeolmiPool {\r\n    using SafeMath for uint256;\r\n\r\n    IInjeolmi public ceik;\r\n\r\n    constructor(IInjeolmi _ceik) public {\r\n        ceik = _ceik;\r\n    }\r\n\r\n    function () payable external {}\r\n\r\n    function swapToCEIK() external payable {\r\n        uint256 newKlay = address(this).balance;\r\n        uint256 lastCEIK = ceik.balanceOf(address(this));\r\n\r\n        uint256 newCEIK = (newKlay.sub(msg.value)).mul(lastCEIK).div(newKlay);\r\n\r\n        ceik.transfer(msg.sender, lastCEIK.sub(newCEIK));\r\n\r\n        emit SwapToCEIK(msg.sender, msg.value);\r\n    }\r\n\r\n    function swapToKlay(uint256 amount) external {\r\n        uint256 lastKlay = address(this).balance;\r\n        uint256 lastCEIK = ceik.balanceOf(address(this));\r\n\r\n        uint256 newKlay = lastCEIK.mul(lastKlay).div(lastCEIK.add(amount.mul(9).div(10)));\r\n\r\n        ceik.transferFrom(msg.sender, address(this), amount);\r\n        msg.sender.transfer(lastKlay.sub(newKlay));\r\n\r\n        emit SwapToKlay(msg.sender, amount);\r\n    }\r\n\r\n    function addLiquidity() external payable {\r\n        uint256 lastKlay = (address(this).balance).sub(msg.value);\r\n        uint256 lastCEIK = ceik.balanceOf(address(this));\r\n\r\n        uint256 inputCEIK = lastCEIK.mul(msg.value).div(lastKlay);\r\n        if(ceik.excluded(msg.sender)) {\r\n            ceik.transferFrom(msg.sender, address(this), inputCEIK);\r\n        } else {\r\n            ceik.transferFrom(msg.sender, address(this), inputCEIK.mul(10).div(9));\r\n        }\r\n    }\r\n}\r\n"
       },
       "contracts/interfaces/IInjeolmiPool.sol": {
-        "content": "pragma solidity ^0.5.6;\r\n\r\ninterface IInjeolmiPool {\r\n\r\n    event SwapToIJM(address indexed user, uint256 amount);\r\n    event SwapToKlay(address indexed user, uint256 amount);\r\n\r\n    function swapToIJM() payable external;\r\n    function swapToKlay(uint256 amount) external;\r\n}\r\n"
+        "content": "pragma solidity ^0.5.6;\r\n\r\ninterface IInjeolmiPool {\r\n\r\n    event SwapToCEIK(address indexed user, uint256 amount);\r\n    event SwapToKlay(address indexed user, uint256 amount);\r\n\r\n    function swapToCEIK() payable external;\r\n    function swapToKlay(uint256 amount) external;\r\n}\r\n"
       },
       "contracts/Injeolmi.sol": {
-        "content": "pragma solidity ^0.5.6;\r\n\r\nimport \"./klaytn-contracts/ownership/Ownable.sol\";\r\nimport \"./klaytn-contracts/math/SafeMath.sol\";\r\nimport \"./klaytn-contracts/lifecycle/Pausable.sol\";\r\nimport \"./interfaces/IInjeolmi.sol\";\r\n\r\n// 우리나라에는 새로 이사를 오면 떡을 돌리는 풍습이 있습니다.\r\n// 이런 \"떡돌리기\" 문화를 토크노믹스로 만들어 보았습니다.\r\n// 한국인의 정과 훈훈한 인심을 느껴보세요.\r\ncontract Injeolmi is Ownable, Pausable, IInjeolmi {\r\n    using SafeMath for uint256;\r\n\r\n    string public constant NAME = \"Injeolmi\";\r\n    string public constant SYMBOL = \"IJM\";\r\n\r\n    // 1억개 발행, 추가 발행 없음\r\n    uint256 public constant COIN = 100000000**uint256(DECIMALS);\r\n    uint8 public constant DECIMALS = 8;\r\n    uint256 private constant MULTIPLIER = 10**9;\r\n\r\n    struct UserInfo {\r\n        uint256 lastBalance;\r\n        uint256 lastMultiplier;\r\n        uint256 resettingCount;\r\n    }\r\n\r\n    mapping(address => UserInfo) public _userInfo;\r\n    mapping(address => mapping(address => uint256)) private allowed;\r\n    mapping(address => bool) public excluded;\r\n\r\n    uint256 public accMultiplier = MULTIPLIER;\r\n    uint256 public resettingCount;\r\n\r\n    function exclude(address addr) external onlyOwner {\r\n        excluded[addr] = true;\r\n    }\r\n\r\n    function include(address addr) external onlyOwner {\r\n        excluded[addr] = false;\r\n    }\r\n\r\n    function name() external pure returns (string memory) {\r\n        return NAME;\r\n    }\r\n\r\n    function symbol() external pure returns (string memory) {\r\n        return SYMBOL;\r\n    }\r\n\r\n    function decimals() external pure returns (uint8) {\r\n        return DECIMALS;\r\n    }\r\n\r\n    function totalSupply() external pure returns (uint256) {\r\n        return COIN;\r\n    }\r\n\r\n    constructor() public {\r\n        _userInfo[msg.sender].lastBalance = COIN;\r\n        _userInfo[msg.sender].lastMultiplier = MULTIPLIER;\r\n    }\r\n\r\n    function updateMultiplier(address[] calldata _addresses) external onlyOwner whenPaused {\r\n        uint256 length = _addresses.length;\r\n        uint256 _accMultiplier = accMultiplier;\r\n        for (uint256 i = 0; i < length; i++) {\r\n            UserInfo storage _uInfo = _userInfo[_addresses[i]];\r\n            uint256 _lastMultiplier = _uInfo.lastMultiplier;\r\n\r\n            if (_uInfo.resettingCount == resettingCount + 1 || _lastMultiplier == 0) {} else if (_lastMultiplier == _accMultiplier) {\r\n                _uInfo.lastMultiplier = MULTIPLIER;\r\n                _uInfo.resettingCount = resettingCount + 1;\r\n            } else {\r\n                _uInfo.lastBalance = _uInfo.lastBalance.mul(_accMultiplier).div(_lastMultiplier);\r\n                _uInfo.lastMultiplier = MULTIPLIER;\r\n                _uInfo.resettingCount = resettingCount + 1;\r\n            }\r\n        }\r\n    }\r\n\r\n    /**\r\n        Should update all of token holders not only EOAs but also the contracts and the owner.\r\n    */\r\n    function finishUpdatingMultiplier() external onlyOwner whenPaused {\r\n        accMultiplier = MULTIPLIER;\r\n        resettingCount = resettingCount + 1;\r\n    }\r\n\r\n    function balanceOf(address user) external view returns (uint256 balance) {\r\n        UserInfo memory _uInfo = _userInfo[user];\r\n        if (_uInfo.lastBalance == 0 || _uInfo.lastMultiplier == 0) return 0;\r\n        return _uInfo.lastBalance.mul(accMultiplier).div(_uInfo.lastMultiplier);\r\n    }\r\n\r\n    function _transfer(\r\n        address from,\r\n        address to,\r\n        uint256 amount\r\n    ) private {\r\n        UserInfo storage _fromInfo = _userInfo[from];\r\n        UserInfo storage _toInfo = _userInfo[to];\r\n\r\n        uint256 _accMultiplier = accMultiplier;\r\n\r\n        uint256 fromUpdatedBalance;\r\n        {\r\n            //avoids stack too deep errors\r\n            uint256 fromLastBalance = _fromInfo.lastBalance;\r\n            uint256 fromLastMultiplier = _fromInfo.lastMultiplier;\r\n            fromUpdatedBalance = fromLastBalance;\r\n            if (fromLastBalance != 0 && fromLastMultiplier != _accMultiplier) {\r\n                fromUpdatedBalance = fromLastBalance.mul(_accMultiplier).div(fromLastMultiplier);\r\n            }\r\n        }\r\n\r\n        uint256 toUpdatedBalance;\r\n        {\r\n            //avoids stack too deep errors\r\n            uint256 toLastBalance = _toInfo.lastBalance;\r\n            uint256 toLastMultiplier = _toInfo.lastMultiplier;\r\n            toUpdatedBalance = toLastBalance;\r\n            if (toLastBalance != 0 && toLastMultiplier != _accMultiplier) {\r\n                toUpdatedBalance = toLastBalance.mul(_accMultiplier).div(toLastMultiplier);\r\n            }\r\n        }\r\n\r\n        if (amount == uint256(-1)) amount = fromUpdatedBalance;\r\n\r\n        if (excluded[from]) {\r\n            _fromInfo.lastBalance = fromUpdatedBalance.sub(amount);\r\n            _toInfo.lastBalance = toUpdatedBalance.add(amount);\r\n        } else {\r\n            // 9% 떡돌리기\r\n            uint256 dist = amount.mul(9).div(100);\r\n            // 1% 떡방앗간 팁\r\n            uint256 fee = amount.div(100);\r\n\r\n            uint256 thisMultiplier = COIN.mul(MULTIPLIER).div(COIN.sub(dist));\r\n\r\n            if (to != address(owner())) {\r\n                UserInfo storage _ownerInfo = _userInfo[address(owner())];\r\n                uint256 ownerUpdatedBalance;\r\n                {\r\n                    //avoids stack too deep errors\r\n                    uint256 ownerLastBalance = _ownerInfo.lastBalance;\r\n                    uint256 ownerLastMultiplier = _ownerInfo.lastMultiplier;\r\n                    ownerUpdatedBalance = ownerLastBalance;\r\n                    if (ownerLastBalance != 0 && ownerLastMultiplier != _accMultiplier) {\r\n                        ownerUpdatedBalance = ownerLastBalance.mul(_accMultiplier).div(ownerLastMultiplier);\r\n                    }\r\n                }\r\n                {\r\n                    //avoids stack too deep errors\r\n                    (_fromInfo.lastBalance, _toInfo.lastBalance, _ownerInfo.lastBalance) = __transfer(fromUpdatedBalance, toUpdatedBalance, ownerUpdatedBalance, amount, dist, fee, thisMultiplier);\r\n                }\r\n                _ownerInfo.lastMultiplier = _accMultiplier.mul(thisMultiplier).div(MULTIPLIER);\r\n            } else {\r\n                _fromInfo.lastBalance = (fromUpdatedBalance.sub(amount)).mul(thisMultiplier).div(MULTIPLIER);\r\n                _toInfo.lastBalance = (toUpdatedBalance.add(amount.sub(dist))).mul(thisMultiplier).div(MULTIPLIER);\r\n            }\r\n\r\n            _accMultiplier = _accMultiplier.mul(thisMultiplier).div(MULTIPLIER);\r\n            accMultiplier = _accMultiplier;\r\n        }\r\n\r\n        _fromInfo.lastMultiplier = _accMultiplier;\r\n        _toInfo.lastMultiplier = _accMultiplier;\r\n\r\n        emit Transfer(from, to, amount);\r\n    }\r\n\r\n    function __transfer(\r\n        uint256 fromUB,\r\n        uint256 toUB,\r\n        uint256 oUB,\r\n        uint256 amount,\r\n        uint256 dist,\r\n        uint256 fee,\r\n        uint256 thisMultiplier\r\n    )\r\n        private\r\n        pure\r\n        returns (\r\n            uint256 f,\r\n            uint256 t,\r\n            uint256 o\r\n        )\r\n    {\r\n        f = (fromUB.sub(amount)).mul(thisMultiplier).div(MULTIPLIER);\r\n        t = (toUB.add(amount.sub(dist.add(fee)))).mul(thisMultiplier).div(MULTIPLIER);\r\n        o = (oUB.add(fee)).mul(thisMultiplier).div(MULTIPLIER);\r\n    }\r\n\r\n    function transfer(address to, uint256 amount) public whenNotPaused returns (bool success) {\r\n        _transfer(msg.sender, to, amount);\r\n        return true;\r\n    }\r\n\r\n    function approve(address spender, uint256 amount) external whenNotPaused returns (bool success) {\r\n        allowed[msg.sender][spender] = amount;\r\n        emit Approval(msg.sender, spender, amount);\r\n        return true;\r\n    }\r\n\r\n    function allowance(address user, address spender) external view returns (uint256 remaining) {\r\n        return allowed[user][spender];\r\n    }\r\n\r\n    function transferFrom(\r\n        address from,\r\n        address to,\r\n        uint256 amount\r\n    ) external whenNotPaused returns (bool success) {\r\n        uint256 _allowance = allowed[from][msg.sender];\r\n        if (_allowance != uint256(-1)) {\r\n            allowed[from][msg.sender] = _allowance.sub(amount);\r\n        }\r\n        _transfer(from, to, amount);\r\n        return true;\r\n    }\r\n}\r\n"
+        "content": "pragma solidity ^0.5.6;\r\n\r\nimport \"./klaytn-contracts/ownership/Ownable.sol\";\r\nimport \"./klaytn-contracts/math/SafeMath.sol\";\r\nimport \"./klaytn-contracts/lifecycle/Pausable.sol\";\r\nimport \"./interfaces/IInjeolmi.sol\";\r\n\r\n// 우리나라에는 새로 이사를 오면 떡을 돌리는 풍습이 있습니다.\r\n// 이런 \"떡돌리기\" 문화를 토크노믹스로 만들어 보았습니다.\r\n// 한국인의 정과 훈훈한 인심을 느껴보세요.\r\ncontract Injeolmi is Ownable, Pausable, IInjeolmi {\r\n    using SafeMath for uint256;\r\n\r\n    string public constant NAME = \"Injeolmi\";\r\n    string public constant SYMBOL = \"CEIK\";\r\n\r\n    // 1억개 발행, 추가 발행 없음\r\n    uint256 public constant COIN = 100000000**uint256(DECIMALS);\r\n    uint8 public constant DECIMALS = 8;\r\n    uint256 private constant MULTIPLIER = 10**9;\r\n\r\n    struct UserInfo {\r\n        uint256 lastBalance;\r\n        uint256 lastMultiplier;\r\n        uint256 resettingCount;\r\n    }\r\n\r\n    mapping(address => UserInfo) public _userInfo;\r\n    mapping(address => mapping(address => uint256)) private allowed;\r\n    mapping(address => bool) public excluded;\r\n\r\n    uint256 public accMultiplier = MULTIPLIER;\r\n    uint256 public resettingCount;\r\n\r\n    function exclude(address addr) external onlyOwner {\r\n        excluded[addr] = true;\r\n    }\r\n\r\n    function include(address addr) external onlyOwner {\r\n        excluded[addr] = false;\r\n    }\r\n\r\n    function name() external pure returns (string memory) {\r\n        return NAME;\r\n    }\r\n\r\n    function symbol() external pure returns (string memory) {\r\n        return SYMBOL;\r\n    }\r\n\r\n    function decimals() external pure returns (uint8) {\r\n        return DECIMALS;\r\n    }\r\n\r\n    function totalSupply() external pure returns (uint256) {\r\n        return COIN;\r\n    }\r\n\r\n    constructor() public {\r\n        _userInfo[msg.sender].lastBalance = COIN;\r\n        _userInfo[msg.sender].lastMultiplier = MULTIPLIER;\r\n    }\r\n\r\n    function updateMultiplier(address[] calldata _addresses) external onlyOwner whenPaused {\r\n        uint256 length = _addresses.length;\r\n        uint256 _accMultiplier = accMultiplier;\r\n        for (uint256 i = 0; i < length; i++) {\r\n            UserInfo storage _uInfo = _userInfo[_addresses[i]];\r\n            uint256 _lastMultiplier = _uInfo.lastMultiplier;\r\n\r\n            if (_uInfo.resettingCount == resettingCount + 1 || _lastMultiplier == 0) {} else if (_lastMultiplier == _accMultiplier) {\r\n                _uInfo.lastMultiplier = MULTIPLIER;\r\n                _uInfo.resettingCount = resettingCount + 1;\r\n            } else {\r\n                _uInfo.lastBalance = _uInfo.lastBalance.mul(_accMultiplier).div(_lastMultiplier);\r\n                _uInfo.lastMultiplier = MULTIPLIER;\r\n                _uInfo.resettingCount = resettingCount + 1;\r\n            }\r\n        }\r\n    }\r\n\r\n    /**\r\n        Should update all of token holders not only EOAs but also the contracts and the owner.\r\n    */\r\n    function finishUpdatingMultiplier() external onlyOwner whenPaused {\r\n        accMultiplier = MULTIPLIER;\r\n        resettingCount = resettingCount + 1;\r\n    }\r\n\r\n    function balanceOf(address user) external view returns (uint256 balance) {\r\n        UserInfo memory _uInfo = _userInfo[user];\r\n        if (_uInfo.lastBalance == 0 || _uInfo.lastMultiplier == 0) return 0;\r\n        return _uInfo.lastBalance.mul(accMultiplier).div(_uInfo.lastMultiplier);\r\n    }\r\n\r\n    function _transfer(\r\n        address from,\r\n        address to,\r\n        uint256 amount\r\n    ) private {\r\n        UserInfo storage _fromInfo = _userInfo[from];\r\n        UserInfo storage _toInfo = _userInfo[to];\r\n\r\n        uint256 _accMultiplier = accMultiplier;\r\n\r\n        uint256 fromUpdatedBalance;\r\n        {\r\n            //avoids stack too deep errors\r\n            uint256 fromLastBalance = _fromInfo.lastBalance;\r\n            uint256 fromLastMultiplier = _fromInfo.lastMultiplier;\r\n            fromUpdatedBalance = fromLastBalance;\r\n            if (fromLastBalance != 0 && fromLastMultiplier != _accMultiplier) {\r\n                fromUpdatedBalance = fromLastBalance.mul(_accMultiplier).div(fromLastMultiplier);\r\n            }\r\n        }\r\n\r\n        uint256 toUpdatedBalance;\r\n        {\r\n            //avoids stack too deep errors\r\n            uint256 toLastBalance = _toInfo.lastBalance;\r\n            uint256 toLastMultiplier = _toInfo.lastMultiplier;\r\n            toUpdatedBalance = toLastBalance;\r\n            if (toLastBalance != 0 && toLastMultiplier != _accMultiplier) {\r\n                toUpdatedBalance = toLastBalance.mul(_accMultiplier).div(toLastMultiplier);\r\n            }\r\n        }\r\n\r\n        if (amount == uint256(-1)) amount = fromUpdatedBalance;\r\n\r\n        if (excluded[from]) {\r\n            _fromInfo.lastBalance = fromUpdatedBalance.sub(amount);\r\n            _toInfo.lastBalance = toUpdatedBalance.add(amount);\r\n        } else {\r\n            // 9% 떡돌리기\r\n            uint256 dist = amount.mul(9).div(100);\r\n            // 1% 떡방앗간 팁\r\n            uint256 fee = amount.div(100);\r\n\r\n            uint256 thisMultiplier = COIN.mul(MULTIPLIER).div(COIN.sub(dist));\r\n\r\n            if (to != address(owner())) {\r\n                UserInfo storage _ownerInfo = _userInfo[address(owner())];\r\n                uint256 ownerUpdatedBalance;\r\n                {\r\n                    //avoids stack too deep errors\r\n                    uint256 ownerLastBalance = _ownerInfo.lastBalance;\r\n                    uint256 ownerLastMultiplier = _ownerInfo.lastMultiplier;\r\n                    ownerUpdatedBalance = ownerLastBalance;\r\n                    if (ownerLastBalance != 0 && ownerLastMultiplier != _accMultiplier) {\r\n                        ownerUpdatedBalance = ownerLastBalance.mul(_accMultiplier).div(ownerLastMultiplier);\r\n                    }\r\n                }\r\n                {\r\n                    //avoids stack too deep errors\r\n                    (_fromInfo.lastBalance, _toInfo.lastBalance, _ownerInfo.lastBalance) = __transfer(fromUpdatedBalance, toUpdatedBalance, ownerUpdatedBalance, amount, dist, fee, thisMultiplier);\r\n                }\r\n                _ownerInfo.lastMultiplier = _accMultiplier.mul(thisMultiplier).div(MULTIPLIER);\r\n            } else {\r\n                _fromInfo.lastBalance = (fromUpdatedBalance.sub(amount)).mul(thisMultiplier).div(MULTIPLIER);\r\n                _toInfo.lastBalance = (toUpdatedBalance.add(amount.sub(dist))).mul(thisMultiplier).div(MULTIPLIER);\r\n            }\r\n\r\n            _accMultiplier = _accMultiplier.mul(thisMultiplier).div(MULTIPLIER);\r\n            accMultiplier = _accMultiplier;\r\n        }\r\n\r\n        _fromInfo.lastMultiplier = _accMultiplier;\r\n        _toInfo.lastMultiplier = _accMultiplier;\r\n\r\n        emit Transfer(from, to, amount);\r\n    }\r\n\r\n    function __transfer(\r\n        uint256 fromUB,\r\n        uint256 toUB,\r\n        uint256 oUB,\r\n        uint256 amount,\r\n        uint256 dist,\r\n        uint256 fee,\r\n        uint256 thisMultiplier\r\n    )\r\n        private\r\n        pure\r\n        returns (\r\n            uint256 f,\r\n            uint256 t,\r\n            uint256 o\r\n        )\r\n    {\r\n        f = (fromUB.sub(amount)).mul(thisMultiplier).div(MULTIPLIER);\r\n        t = (toUB.add(amount.sub(dist.add(fee)))).mul(thisMultiplier).div(MULTIPLIER);\r\n        o = (oUB.add(fee)).mul(thisMultiplier).div(MULTIPLIER);\r\n    }\r\n\r\n    function transfer(address to, uint256 amount) public whenNotPaused returns (bool success) {\r\n        _transfer(msg.sender, to, amount);\r\n        return true;\r\n    }\r\n\r\n    function approve(address spender, uint256 amount) external whenNotPaused returns (bool success) {\r\n        allowed[msg.sender][spender] = amount;\r\n        emit Approval(msg.sender, spender, amount);\r\n        return true;\r\n    }\r\n\r\n    function allowance(address user, address spender) external view returns (uint256 remaining) {\r\n        return allowed[user][spender];\r\n    }\r\n\r\n    function transferFrom(\r\n        address from,\r\n        address to,\r\n        uint256 amount\r\n    ) external whenNotPaused returns (bool success) {\r\n        uint256 _allowance = allowed[from][msg.sender];\r\n        if (_allowance != uint256(-1)) {\r\n            allowed[from][msg.sender] = _allowance.sub(amount);\r\n        }\r\n        _transfer(from, to, amount);\r\n        return true;\r\n    }\r\n}\r\n"
       },
       "contracts/klaytn-contracts/lifecycle/Pausable.sol": {
         "content": "pragma solidity ^0.5.0;\n\nimport \"../access/roles/PauserRole.sol\";\n\n/**\n * @dev Contract module which allows children to implement an emergency stop\n * mechanism that can be triggered by an authorized account.\n *\n * This module is used through inheritance. It will make available the\n * modifiers `whenNotPaused` and `whenPaused`, which can be applied to\n * the functions of your contract. Note that they will not be pausable by\n * simply including this module, only once the modifiers are put in place.\n */\ncontract Pausable is PauserRole {\n    /**\n     * @dev Emitted when the pause is triggered by a pauser (`account`).\n     */\n    event Paused(address account);\n\n    /**\n     * @dev Emitted when the pause is lifted by a pauser (`account`).\n     */\n    event Unpaused(address account);\n\n    bool private _paused;\n\n    /**\n     * @dev Initializes the contract in unpaused state. Assigns the Pauser role\n     * to the deployer.\n     */\n    constructor () internal {\n        _paused = false;\n    }\n\n    /**\n     * @dev Returns true if the contract is paused, and false otherwise.\n     */\n    function paused() public view returns (bool) {\n        return _paused;\n    }\n\n    /**\n     * @dev Modifier to make a function callable only when the contract is not paused.\n     */\n    modifier whenNotPaused() {\n        require(!_paused, \"Pausable: paused\");\n        _;\n    }\n\n    /**\n     * @dev Modifier to make a function callable only when the contract is paused.\n     */\n    modifier whenPaused() {\n        require(_paused, \"Pausable: not paused\");\n        _;\n    }\n\n    /**\n     * @dev Called by a pauser to pause, triggers stopped state.\n     */\n    function pause() public onlyPauser whenNotPaused {\n        _paused = true;\n        emit Paused(msg.sender);\n    }\n\n    /**\n     * @dev Called by a pauser to unpause, returns to normal state.\n     */\n    function unpause() public onlyPauser whenPaused {\n        _paused = false;\n        emit Unpaused(msg.sender);\n    }\n}\n"
@@ -65,7 +65,7 @@
             {
               "constant": true,
               "inputs": [],
-              "name": "ijm",
+              "name": "ceik",
               "outputs": [
                 {
                   "name": "",
@@ -148,7 +148,7 @@
             {
               "inputs": [
                 {
-                  "name": "_ijm",
+                  "name": "_ceik",
                   "type": "address"
                 }
               ],
@@ -189,7 +189,7 @@
             },
             "methodIdentifiers": {
               "airdrop(address[],uint256)": "c204642c",
-              "ijm()": "110d4025",
+              "ceik()": "110d4025",
               "isOwner()": "8f32d59b",
               "owner()": "8da5cb5b",
               "renounceOwnership()": "715018a6",
@@ -849,7 +849,7 @@
             {
               "constant": true,
               "inputs": [],
-              "name": "ijm",
+              "name": "ceik",
               "outputs": [
                 {
                   "name": "",
@@ -863,7 +863,7 @@
             {
               "constant": false,
               "inputs": [],
-              "name": "swapToIJM",
+              "name": "swapToCEIK",
               "outputs": [],
               "payable": true,
               "stateMutability": "payable",
@@ -895,7 +895,7 @@
             {
               "inputs": [
                 {
-                  "name": "_ijm",
+                  "name": "_ceik",
                   "type": "address"
                 }
               ],
@@ -922,7 +922,7 @@
                   "type": "uint256"
                 }
               ],
-              "name": "SwapToIJM",
+              "name": "SwapToCEIK",
               "type": "event"
             },
             {
@@ -958,8 +958,8 @@
             },
             "methodIdentifiers": {
               "addLiquidity()": "e8078d94",
-              "ijm()": "110d4025",
-              "swapToIJM()": "b4ccdfd0",
+              "ceik()": "110d4025",
+              "swapToCEIK()": "b4ccdfd0",
               "swapToKlay(uint256)": "fe5a92b8"
             }
           }
@@ -1265,7 +1265,7 @@
             {
               "constant": false,
               "inputs": [],
-              "name": "swapToIJM",
+              "name": "swapToCEIK",
               "outputs": [],
               "payable": true,
               "stateMutability": "payable",
@@ -1299,7 +1299,7 @@
                   "type": "uint256"
                 }
               ],
-              "name": "SwapToIJM",
+              "name": "SwapToCEIK",
               "type": "event"
             },
             {
@@ -1334,7 +1334,7 @@
               "sourceMap": ""
             },
             "methodIdentifiers": {
-              "swapToIJM()": "b4ccdfd0",
+              "swapToCEIK()": "b4ccdfd0",
               "swapToKlay(uint256)": "fe5a92b8"
             }
           }
@@ -1855,7 +1855,7 @@
                 {
                   "constant": false,
                   "id": 11,
-                  "name": "ijm",
+                  "name": "ceik",
                   "nodeType": "VariableDeclaration",
                   "scope": 63,
                   "src": "237:20:0",
@@ -1897,7 +1897,7 @@
                           "leftHandSide": {
                             "argumentTypes": null,
                             "id": 16,
-                            "name": "ijm",
+                            "name": "ceik",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 11,
@@ -1912,7 +1912,7 @@
                           "rightHandSide": {
                             "argumentTypes": null,
                             "id": 17,
-                            "name": "_ijm",
+                            "name": "_ceik",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 13,
@@ -1948,7 +1948,7 @@
                       {
                         "constant": false,
                         "id": 13,
-                        "name": "_ijm",
+                        "name": "_ceik",
                         "nodeType": "VariableDeclaration",
                         "scope": 21,
                         "src": "278:14:0",
@@ -2137,7 +2137,7 @@
                                   "expression": {
                                     "argumentTypes": null,
                                     "id": 50,
-                                    "name": "ijm",
+                                    "name": "ceik",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
                                     "referencedDeclaration": 11,
@@ -2757,9 +2757,9 @@
                     "subdenomination": null,
                     "typeDescriptions": {
                       "typeIdentifier": "t_stringliteral_10445418c24f6154f5affaa0ed87f60ca6558edd09cfb2c489091b5228d65942",
-                      "typeString": "literal_string \"IJM\""
+                      "typeString": "literal_string \"CEIK\""
                     },
-                    "value": "IJM"
+                    "value": "CEIK"
                   },
                   "visibility": "public"
                 },
@@ -13220,7 +13220,7 @@
                 {
                   "constant": false,
                   "id": 885,
-                  "name": "ijm",
+                  "name": "ceik",
                   "nodeType": "VariableDeclaration",
                   "scope": 1094,
                   "src": "238:20:2",
@@ -13262,7 +13262,7 @@
                           "leftHandSide": {
                             "argumentTypes": null,
                             "id": 890,
-                            "name": "ijm",
+                            "name": "ceik",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 885,
@@ -13277,7 +13277,7 @@
                           "rightHandSide": {
                             "argumentTypes": null,
                             "id": 891,
-                            "name": "_ijm",
+                            "name": "_ceik",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 887,
@@ -13313,7 +13313,7 @@
                       {
                         "constant": false,
                         "id": 887,
-                        "name": "_ijm",
+                        "name": "_ceik",
                         "nodeType": "VariableDeclaration",
                         "scope": 895,
                         "src": "279:14:2",
@@ -13502,7 +13502,7 @@
                           {
                             "constant": false,
                             "id": 910,
-                            "name": "lastIJM",
+                            "name": "lastCEIK",
                             "nodeType": "VariableDeclaration",
                             "scope": 951,
                             "src": "477:15:2",
@@ -13592,7 +13592,7 @@
                             "expression": {
                               "argumentTypes": null,
                               "id": 911,
-                              "name": "ijm",
+                              "name": "ceik",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 885,
@@ -13641,7 +13641,7 @@
                           {
                             "constant": false,
                             "id": 919,
-                            "name": "newIJM",
+                            "name": "newCEIK",
                             "nodeType": "VariableDeclaration",
                             "scope": 951,
                             "src": "536:14:2",
@@ -13696,7 +13696,7 @@
                                 {
                                   "argumentTypes": null,
                                   "id": 927,
-                                  "name": "lastIJM",
+                                  "name": "lastCEIK",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
                                   "referencedDeclaration": 910,
@@ -13910,7 +13910,7 @@
                                 {
                                   "argumentTypes": null,
                                   "id": 940,
-                                  "name": "newIJM",
+                                  "name": "newCEIK",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
                                   "referencedDeclaration": 919,
@@ -13931,7 +13931,7 @@
                                 "expression": {
                                   "argumentTypes": null,
                                   "id": 938,
-                                  "name": "lastIJM",
+                                  "name": "lastCEIK",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
                                   "referencedDeclaration": 910,
@@ -13984,7 +13984,7 @@
                             "expression": {
                               "argumentTypes": null,
                               "id": 933,
-                              "name": "ijm",
+                              "name": "ceik",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 885,
@@ -14101,7 +14101,7 @@
                               }
                             ],
                             "id": 944,
-                            "name": "SwapToIJM",
+                            "name": "SwapToCEIK",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 1204,
@@ -14136,7 +14136,7 @@
                   "implemented": true,
                   "kind": "function",
                   "modifiers": [],
-                  "name": "swapToIJM",
+                  "name": "swapToCEIK",
                   "nodeType": "FunctionDefinition",
                   "parameters": {
                     "id": 900,
@@ -14273,7 +14273,7 @@
                           {
                             "constant": false,
                             "id": 965,
-                            "name": "lastIJM",
+                            "name": "lastCEIK",
                             "nodeType": "VariableDeclaration",
                             "scope": 1020,
                             "src": "834:15:2",
@@ -14363,7 +14363,7 @@
                             "expression": {
                               "argumentTypes": null,
                               "id": 966,
-                              "name": "ijm",
+                              "name": "ceik",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 885,
@@ -14581,7 +14581,7 @@
                                 "expression": {
                                   "argumentTypes": null,
                                   "id": 980,
-                                  "name": "lastIJM",
+                                  "name": "lastCEIK",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
                                   "referencedDeclaration": 965,
@@ -14654,7 +14654,7 @@
                                 "expression": {
                                   "argumentTypes": null,
                                   "id": 975,
-                                  "name": "lastIJM",
+                                  "name": "lastCEIK",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
                                   "referencedDeclaration": 965,
@@ -14839,7 +14839,7 @@
                             "expression": {
                               "argumentTypes": null,
                               "id": 992,
-                              "name": "ijm",
+                              "name": "ceik",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 885,
@@ -15362,7 +15362,7 @@
                           {
                             "constant": false,
                             "id": 1037,
-                            "name": "lastIJM",
+                            "name": "lastCEIK",
                             "nodeType": "VariableDeclaration",
                             "scope": 1092,
                             "src": "1273:15:2",
@@ -15452,7 +15452,7 @@
                             "expression": {
                               "argumentTypes": null,
                               "id": 1038,
-                              "name": "ijm",
+                              "name": "ceik",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 885,
@@ -15501,7 +15501,7 @@
                           {
                             "constant": false,
                             "id": 1046,
-                            "name": "inputIJM",
+                            "name": "inputCEIK",
                             "nodeType": "VariableDeclaration",
                             "scope": 1092,
                             "src": "1332:16:2",
@@ -15593,7 +15593,7 @@
                                 "expression": {
                                   "argumentTypes": null,
                                   "id": 1047,
-                                  "name": "lastIJM",
+                                  "name": "lastCEIK",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
                                   "referencedDeclaration": 1037,
@@ -15706,7 +15706,7 @@
                             "expression": {
                               "argumentTypes": null,
                               "id": 1056,
-                              "name": "ijm",
+                              "name": "ceik",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 885,
@@ -15894,7 +15894,7 @@
                                           "expression": {
                                             "argumentTypes": null,
                                             "id": 1081,
-                                            "name": "inputIJM",
+                                            "name": "inputCEIK",
                                             "nodeType": "Identifier",
                                             "overloadedDeclarations": [],
                                             "referencedDeclaration": 1046,
@@ -15979,7 +15979,7 @@
                                   "expression": {
                                     "argumentTypes": null,
                                     "id": 1073,
-                                    "name": "ijm",
+                                    "name": "ceik",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
                                     "referencedDeclaration": 885,
@@ -16118,7 +16118,7 @@
                                   {
                                     "argumentTypes": null,
                                     "id": 1069,
-                                    "name": "inputIJM",
+                                    "name": "inputCEIK",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
                                     "referencedDeclaration": 1046,
@@ -16147,7 +16147,7 @@
                                   "expression": {
                                     "argumentTypes": null,
                                     "id": 1061,
-                                    "name": "ijm",
+                                    "name": "ceik",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
                                     "referencedDeclaration": 885,
@@ -17481,7 +17481,7 @@
                   "anonymous": false,
                   "documentation": null,
                   "id": 1204,
-                  "name": "SwapToIJM",
+                  "name": "SwapToCEIK",
                   "nodeType": "EventDefinition",
                   "parameters": {
                     "id": 1203,
@@ -17624,7 +17624,7 @@
                   "implemented": false,
                   "kind": "function",
                   "modifiers": [],
-                  "name": "swapToIJM",
+                  "name": "swapToCEIK",
                   "nodeType": "FunctionDefinition",
                   "parameters": {
                     "id": 1211,

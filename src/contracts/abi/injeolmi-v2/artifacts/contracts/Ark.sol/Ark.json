@@ -85,7 +85,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "newIjm",
+      "name": "newceik",
       "outputs": [
         {
           "name": "",
@@ -151,11 +151,11 @@
       "constant": false,
       "inputs": [
         {
-          "name": "_newIjm",
+          "name": "_newceik",
           "type": "address"
         }
       ],
-      "name": "setNewIjm",
+      "name": "setNewceik",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -164,7 +164,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "oldIjm",
+      "name": "oldceik",
       "outputs": [
         {
           "name": "",
@@ -257,7 +257,7 @@
     {
       "inputs": [
         {
-          "name": "_oldIjm",
+          "name": "_oldceik",
           "type": "address"
         }
       ],

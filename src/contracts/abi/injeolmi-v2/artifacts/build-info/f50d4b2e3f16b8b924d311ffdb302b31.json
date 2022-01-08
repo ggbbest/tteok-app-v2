@@ -7,7 +7,7 @@
     "language": "Solidity",
     "sources": {
       "contracts/Ark.sol": {
-        "content": "pragma solidity ^0.5.6;\r\n\r\nimport \"./klaytn-contracts/ownership/Ownable.sol\";\r\nimport \"./klaytn-contracts/math/SafeMath.sol\";\r\nimport \"./klaytn-contracts/token/KIP7/IKIP7.sol\";\r\n\r\ncontract Ark is Ownable {\r\n    using SafeMath for uint256;\r\n\r\n    IKIP7 public oldIjm;\r\n    IKIP7 public newIjm;\r\n\r\n    uint256 public total = 0;\r\n    mapping(address => uint256) public records;\r\n    mapping(address => bool) public received;\r\n    address[] public users;\r\n    uint256 public step = 0;\r\n\r\n    constructor(IKIP7 _oldIjm) public {\r\n        oldIjm = _oldIjm;\r\n    }\r\n\r\n    function setNewIjm(IKIP7 _newIjm) onlyOwner external {\r\n        newIjm = _newIjm;\r\n    }\r\n\r\n    function setStep(uint256 _step) onlyOwner external {\r\n        step = _step;\r\n    }\r\n\r\n    function usersCount() external view returns (uint256) {\r\n        return users.length;\r\n    }\r\n\r\n    // 단계1: 기록\r\n    function record() external {\r\n        uint256 balance = oldIjm.balanceOf(msg.sender);\r\n        require(step == 0 && balance > 0 && records[msg.sender] == 0);\r\n        records[msg.sender] = balance;\r\n        users.push(msg.sender);\r\n        total = total.add(balance);\r\n    }\r\n\r\n    // 단계2: 기존 인절미 입금\r\n    function sendOld() external {\r\n        require(step == 1);\r\n        oldIjm.transferFrom(msg.sender, address(this), records[msg.sender]);\r\n    }\r\n\r\n    // 단계3: 뉴 인절미 받아가기\r\n    function receiveNew() external {\r\n        require(step == 2 && received[msg.sender] != true);\r\n\r\n        // decimals 8 -> 18\r\n        newIjm.transfer(msg.sender, records[msg.sender].mul(1e10));\r\n        received[msg.sender] = true;\r\n    }\r\n\r\n    function withdrawOld() onlyOwner external {\r\n        oldIjm.transfer(owner(), oldIjm.balanceOf(address(this)));\r\n    }\r\n\r\n    function withdrawNew() onlyOwner external {\r\n        newIjm.transfer(owner(), newIjm.balanceOf(address(this)));\r\n    }\r\n}\r\n"
+        "content": "pragma solidity ^0.5.6;\r\n\r\nimport \"./klaytn-contracts/ownership/Ownable.sol\";\r\nimport \"./klaytn-contracts/math/SafeMath.sol\";\r\nimport \"./klaytn-contracts/token/KIP7/IKIP7.sol\";\r\n\r\ncontract Ark is Ownable {\r\n    using SafeMath for uint256;\r\n\r\n    IKIP7 public oldceik;\r\n    IKIP7 public newceik;\r\n\r\n    uint256 public total = 0;\r\n    mapping(address => uint256) public records;\r\n    mapping(address => bool) public received;\r\n    address[] public users;\r\n    uint256 public step = 0;\r\n\r\n    constructor(IKIP7 _oldceik) public {\r\n        oldceik = _oldceik;\r\n    }\r\n\r\n    function setNewceik(IKIP7 _newceik) onlyOwner external {\r\n        newceik = _newceik;\r\n    }\r\n\r\n    function setStep(uint256 _step) onlyOwner external {\r\n        step = _step;\r\n    }\r\n\r\n    function usersCount() external view returns (uint256) {\r\n        return users.length;\r\n    }\r\n\r\n    // 단계1: 기록\r\n    function record() external {\r\n        uint256 balance = oldceik.balanceOf(msg.sender);\r\n        require(step == 0 && balance > 0 && records[msg.sender] == 0);\r\n        records[msg.sender] = balance;\r\n        users.push(msg.sender);\r\n        total = total.add(balance);\r\n    }\r\n\r\n    // 단계2: 기존 세이크 입금\r\n    function sendOld() external {\r\n        require(step == 1);\r\n        oldceik.transferFrom(msg.sender, address(this), records[msg.sender]);\r\n    }\r\n\r\n    // 단계3: 뉴 세이크 받아가기\r\n    function receiveNew() external {\r\n        require(step == 2 && received[msg.sender] != true);\r\n\r\n        // decimals 8 -> 18\r\n        newceik.transfer(msg.sender, records[msg.sender].mul(1e10));\r\n        received[msg.sender] = true;\r\n    }\r\n\r\n    function withdrawOld() onlyOwner external {\r\n        oldceik.transfer(owner(), oldceik.balanceOf(address(this)));\r\n    }\r\n\r\n    function withdrawNew() onlyOwner external {\r\n        newceik.transfer(owner(), newceik.balanceOf(address(this)));\r\n    }\r\n}\r\n"
       },
       "contracts/klaytn-contracts/ownership/Ownable.sol": {
         "content": "pragma solidity ^0.5.0;\n\n/**\n * @dev Contract module which provides a basic access control mechanism, where\n * there is an account (an owner) that can be granted exclusive access to\n * specific functions.\n *\n * This module is used through inheritance. It will make available the modifier\n * `onlyOwner`, which can be aplied to your functions to restrict their use to\n * the owner.\n */\ncontract Ownable {\n    address payable private _owner;\n\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\n\n    /**\n     * @dev Initializes the contract setting the deployer as the initial owner.\n     */\n    constructor () internal {\n        _owner = msg.sender;\n        emit OwnershipTransferred(address(0), _owner);\n    }\n\n    /**\n     * @dev Returns the address of the current owner.\n     */\n    function owner() public view returns (address payable) {\n        return _owner;\n    }\n\n    /**\n     * @dev Throws if called by any account other than the owner.\n     */\n    modifier onlyOwner() {\n        require(isOwner(), \"Ownable: caller is not the owner\");\n        _;\n    }\n\n    /**\n     * @dev Returns true if the caller is the current owner.\n     */\n    function isOwner() public view returns (bool) {\n        return msg.sender == _owner;\n    }\n\n    /**\n     * @dev Leaves the contract without owner. It will not be possible to call\n     * `onlyOwner` functions anymore. Can only be called by the current owner.\n     *\n     * > Note: Renouncing ownership will leave the contract without an owner,\n     * thereby removing any functionality that is only available to the owner.\n     */\n    function renounceOwnership() public onlyOwner {\n        emit OwnershipTransferred(_owner, address(0));\n        _owner = address(0);\n    }\n\n    /**\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\n     * Can only be called by the current owner.\n     */\n    function transferOwnership(address payable newOwner) public onlyOwner {\n        _transferOwnership(newOwner);\n    }\n\n    /**\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\n     */\n    function _transferOwnership(address payable newOwner) internal {\n        require(newOwner != address(0), \"Ownable: new owner is the zero address\");\n        emit OwnershipTransferred(_owner, newOwner);\n        _owner = newOwner;\n    }\n}\n"
@@ -130,7 +130,7 @@
             {
               "constant": true,
               "inputs": [],
-              "name": "newIjm",
+              "name": "newceik",
               "outputs": [
                 {
                   "name": "",
@@ -196,11 +196,11 @@
               "constant": false,
               "inputs": [
                 {
-                  "name": "_newIjm",
+                  "name": "_newceik",
                   "type": "address"
                 }
               ],
-              "name": "setNewIjm",
+              "name": "setNewceik",
               "outputs": [],
               "payable": false,
               "stateMutability": "nonpayable",
@@ -209,7 +209,7 @@
             {
               "constant": true,
               "inputs": [],
-              "name": "oldIjm",
+              "name": "oldceik",
               "outputs": [
                 {
                   "name": "",
@@ -302,7 +302,7 @@
             {
               "inputs": [
                 {
-                  "name": "_oldIjm",
+                  "name": "_oldceik",
                   "type": "address"
                 }
               ],
@@ -343,8 +343,8 @@
             },
             "methodIdentifiers": {
               "isOwner()": "8f32d59b",
-              "newIjm()": "60e088ac",
-              "oldIjm()": "c7def778",
+              "newceik()": "60e088ac",
+              "oldceik()": "c7def778",
               "owner()": "8da5cb5b",
               "receiveNew()": "27c20b60",
               "received(address)": "df0cb934",
@@ -352,7 +352,7 @@
               "records(address)": "469e9067",
               "renounceOwnership()": "715018a6",
               "sendOld()": "fa0f2a4b",
-              "setNewIjm(address)": "b07e96c6",
+              "setNewceik(address)": "b07e96c6",
               "setStep(uint256)": "f8dcbddb",
               "step()": "e25fe175",
               "total()": "2ddbd13a",
@@ -363,7 +363,7 @@
               "withdrawOld()": "f9c8d5f8"
             }
           },
-          "metadata": "{\"compiler\":{\"version\":\"0.5.6+commit.b259423e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"record\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"receiveNew\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"total\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"users\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"records\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"withdrawNew\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"newIjm\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"usersCount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_newIjm\",\"type\":\"address\"}],\"name\":\"setNewIjm\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"oldIjm\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"received\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"step\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_step\",\"type\":\"uint256\"}],\"name\":\"setStep\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"withdrawOld\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"sendOld\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"_oldIjm\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"}],\"devdoc\":{\"methods\":{\"isOwner()\":{\"details\":\"Returns true if the caller is the current owner.\"},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner.     * > Note: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"contracts/Ark.sol\":\"Ark\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/Ark.sol\":{\"keccak256\":\"0xeac9113caf976d33088d9cb74bb6bd74d6aa9f21038ebd952f49087bee9a51c4\",\"urls\":[\"bzzr://a79ea6b3d5e7ddc2ff8a6e8c6aa7d53a17ecac698014686cd9d376adf8dd687b\"]},\"contracts/klaytn-contracts/introspection/IKIP13.sol\":{\"keccak256\":\"0xf7415711dbec40bc633af7d8cb5c3c0bc3d1ed97fd8c13f795a03eb3073ea219\",\"urls\":[\"bzzr://2c161a0e94debcd164c7a87e2c12c087ffefe24bc7a4a9f304f5d8ba39ed15a1\"]},\"contracts/klaytn-contracts/math/SafeMath.sol\":{\"keccak256\":\"0x640b6dee7a4b830bdfd52b5031a07fc2b12209f5b2e29e5d364a7d37f69d8076\",\"urls\":[\"bzzr://292843005e754e752644f767477ec5ad7a1ffc91ddb18c38b8079c62f3993cad\"]},\"contracts/klaytn-contracts/ownership/Ownable.sol\":{\"keccak256\":\"0xc9b4f8e4eeaab9ef9d0f83e2ab2ba2b0808115cf5e5d1e4d1a6bb94b0753b495\",\"urls\":[\"bzzr://f5b1c257ce6b6586c16aa6c515d0bf9f7f53bf870fff3abf4224b072ec11a447\"]},\"contracts/klaytn-contracts/token/KIP7/IKIP7.sol\":{\"keccak256\":\"0xb2b107e08a5044b50d4596191b2853ada5d87b351765a66b8cff7062b159843d\",\"urls\":[\"bzzr://b7ab743c5f3c411177fcaea13e871410075e50d4df7f67453261736c33034498\"]}},\"version\":1}"
+          "metadata": "{\"compiler\":{\"version\":\"0.5.6+commit.b259423e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"record\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"receiveNew\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"total\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"users\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"records\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"withdrawNew\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"newceik\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"usersCount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_newceik\",\"type\":\"address\"}],\"name\":\"setNewceik\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"oldceik\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"received\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"step\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_step\",\"type\":\"uint256\"}],\"name\":\"setStep\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"withdrawOld\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"sendOld\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"_oldceik\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"}],\"devdoc\":{\"methods\":{\"isOwner()\":{\"details\":\"Returns true if the caller is the current owner.\"},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner.     * > Note: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"contracts/Ark.sol\":\"Ark\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/Ark.sol\":{\"keccak256\":\"0xeac9113caf976d33088d9cb74bb6bd74d6aa9f21038ebd952f49087bee9a51c4\",\"urls\":[\"bzzr://a79ea6b3d5e7ddc2ff8a6e8c6aa7d53a17ecac698014686cd9d376adf8dd687b\"]},\"contracts/klaytn-contracts/introspection/IKIP13.sol\":{\"keccak256\":\"0xf7415711dbec40bc633af7d8cb5c3c0bc3d1ed97fd8c13f795a03eb3073ea219\",\"urls\":[\"bzzr://2c161a0e94debcd164c7a87e2c12c087ffefe24bc7a4a9f304f5d8ba39ed15a1\"]},\"contracts/klaytn-contracts/math/SafeMath.sol\":{\"keccak256\":\"0x640b6dee7a4b830bdfd52b5031a07fc2b12209f5b2e29e5d364a7d37f69d8076\",\"urls\":[\"bzzr://292843005e754e752644f767477ec5ad7a1ffc91ddb18c38b8079c62f3993cad\"]},\"contracts/klaytn-contracts/ownership/Ownable.sol\":{\"keccak256\":\"0xc9b4f8e4eeaab9ef9d0f83e2ab2ba2b0808115cf5e5d1e4d1a6bb94b0753b495\",\"urls\":[\"bzzr://f5b1c257ce6b6586c16aa6c515d0bf9f7f53bf870fff3abf4224b072ec11a447\"]},\"contracts/klaytn-contracts/token/KIP7/IKIP7.sol\":{\"keccak256\":\"0xb2b107e08a5044b50d4596191b2853ada5d87b351765a66b8cff7062b159843d\",\"urls\":[\"bzzr://b7ab743c5f3c411177fcaea13e871410075e50d4df7f67453261736c33034498\"]}},\"version\":1}"
         }
       },
       "contracts/klaytn-contracts/introspection/IKIP13.sol": {
@@ -967,7 +967,7 @@
                 {
                   "constant": false,
                   "id": 11,
-                  "name": "oldIjm",
+                  "name": "oldceik",
                   "nodeType": "VariableDeclaration",
                   "scope": 224,
                   "src": "246:19:0",
@@ -995,7 +995,7 @@
                 {
                   "constant": false,
                   "id": 13,
-                  "name": "newIjm",
+                  "name": "newceik",
                   "nodeType": "VariableDeclaration",
                   "scope": 224,
                   "src": "272:19:0",
@@ -1250,7 +1250,7 @@
                           "leftHandSide": {
                             "argumentTypes": null,
                             "id": 35,
-                            "name": "oldIjm",
+                            "name": "oldceik",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 11,
@@ -1265,7 +1265,7 @@
                           "rightHandSide": {
                             "argumentTypes": null,
                             "id": 36,
-                            "name": "_oldIjm",
+                            "name": "_oldceik",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 32,
@@ -1301,7 +1301,7 @@
                       {
                         "constant": false,
                         "id": 32,
-                        "name": "_oldIjm",
+                        "name": "_oldceik",
                         "nodeType": "VariableDeclaration",
                         "scope": 40,
                         "src": "500:13:0",
@@ -1358,7 +1358,7 @@
                           "leftHandSide": {
                             "argumentTypes": null,
                             "id": 47,
-                            "name": "newIjm",
+                            "name": "newceik",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 13,
@@ -1373,7 +1373,7 @@
                           "rightHandSide": {
                             "argumentTypes": null,
                             "id": 48,
-                            "name": "_newIjm",
+                            "name": "_newceik",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 42,
@@ -1420,7 +1420,7 @@
                       "src": "599:9:0"
                     }
                   ],
-                  "name": "setNewIjm",
+                  "name": "setNewceik",
                   "nodeType": "FunctionDefinition",
                   "parameters": {
                     "id": 43,
@@ -1429,7 +1429,7 @@
                       {
                         "constant": false,
                         "id": 42,
-                        "name": "_newIjm",
+                        "name": "_newceik",
                         "nodeType": "VariableDeclaration",
                         "scope": 52,
                         "src": "584:13:0",
@@ -1772,7 +1772,7 @@
                             "expression": {
                               "argumentTypes": null,
                               "id": 78,
-                              "name": "oldIjm",
+                              "name": "oldceik",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 11,
@@ -2647,7 +2647,7 @@
                             "expression": {
                               "argumentTypes": null,
                               "id": 132,
-                              "name": "oldIjm",
+                              "name": "oldceik",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 11,
@@ -3089,7 +3089,7 @@
                             "expression": {
                               "argumentTypes": null,
                               "id": 163,
-                              "name": "newIjm",
+                              "name": "newceik",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 13,
@@ -3357,7 +3357,7 @@
                                 "expression": {
                                   "argumentTypes": null,
                                   "id": 195,
-                                  "name": "oldIjm",
+                                  "name": "oldceik",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
                                   "referencedDeclaration": 11,
@@ -3410,7 +3410,7 @@
                             "expression": {
                               "argumentTypes": null,
                               "id": 190,
-                              "name": "oldIjm",
+                              "name": "oldceik",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 11,
@@ -3604,7 +3604,7 @@
                                 "expression": {
                                   "argumentTypes": null,
                                   "id": 214,
-                                  "name": "newIjm",
+                                  "name": "newceik",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
                                   "referencedDeclaration": 13,
@@ -3657,7 +3657,7 @@
                             "expression": {
                               "argumentTypes": null,
                               "id": 209,
-                              "name": "newIjm",
+                              "name": "newceik",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 13,

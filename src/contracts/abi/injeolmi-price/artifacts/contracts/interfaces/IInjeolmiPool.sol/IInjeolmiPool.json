@@ -6,7 +6,7 @@
     {
       "constant": false,
       "inputs": [],
-      "name": "swapToIJM",
+      "name": "swapToCEIK",
       "outputs": [],
       "payable": true,
       "stateMutability": "payable",
@@ -40,7 +40,7 @@
           "type": "uint256"
         }
       ],
-      "name": "SwapToIJM",
+      "name": "SwapToCEIK",
       "type": "event"
     },
     {

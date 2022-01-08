@@ -28,13 +28,13 @@ interface ArkInterface extends ethers.utils.Interface {
     "users(uint256)": FunctionFragment;
     "records(address)": FunctionFragment;
     "withdrawNew()": FunctionFragment;
-    "newIjm()": FunctionFragment;
+    "newceik()": FunctionFragment;
     "usersCount()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "owner()": FunctionFragment;
     "isOwner()": FunctionFragment;
-    "setNewIjm(address)": FunctionFragment;
-    "oldIjm()": FunctionFragment;
+    "setNewceik(address)": FunctionFragment;
+    "oldceik()": FunctionFragment;
     "received(address)": FunctionFragment;
     "step()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
@@ -55,7 +55,7 @@ interface ArkInterface extends ethers.utils.Interface {
     functionFragment: "withdrawNew",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "newIjm", values?: undefined): string;
+  encodeFunctionData(functionFragment: "newceik", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "usersCount",
     values?: undefined
@@ -66,8 +66,8 @@ interface ArkInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(functionFragment: "isOwner", values?: undefined): string;
-  encodeFunctionData(functionFragment: "setNewIjm", values: [string]): string;
-  encodeFunctionData(functionFragment: "oldIjm", values?: undefined): string;
+  encodeFunctionData(functionFragment: "setNewceik", values: [string]): string;
+  encodeFunctionData(functionFragment: "oldceik", values?: undefined): string;
   encodeFunctionData(functionFragment: "received", values: [string]): string;
   encodeFunctionData(functionFragment: "step", values?: undefined): string;
   encodeFunctionData(
@@ -93,7 +93,7 @@ interface ArkInterface extends ethers.utils.Interface {
     functionFragment: "withdrawNew",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "newIjm", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "newceik", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "usersCount", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
@@ -101,8 +101,8 @@ interface ArkInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isOwner", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "setNewIjm", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "oldIjm", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setNewceik", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "oldceik", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "received", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "step", data: BytesLike): Result;
   decodeFunctionResult(
@@ -167,9 +167,9 @@ export class Ark extends Contract {
 
     "withdrawNew()"(overrides?: Overrides): Promise<ContractTransaction>;
 
-    newIjm(overrides?: CallOverrides): Promise<[string]>;
+    newceik(overrides?: CallOverrides): Promise<[string]>;
 
-    "newIjm()"(overrides?: CallOverrides): Promise<[string]>;
+    "newceik()"(overrides?: CallOverrides): Promise<[string]>;
 
     usersCount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -187,19 +187,19 @@ export class Ark extends Contract {
 
     "isOwner()"(overrides?: CallOverrides): Promise<[boolean]>;
 
-    setNewIjm(
-      _newIjm: string,
+    setNewceik(
+      _newceik: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    "setNewIjm(address)"(
-      _newIjm: string,
+    "setNewceik(address)"(
+      _newceik: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    oldIjm(overrides?: CallOverrides): Promise<[string]>;
+    oldceik(overrides?: CallOverrides): Promise<[string]>;
 
-    "oldIjm()"(overrides?: CallOverrides): Promise<[string]>;
+    "oldceik()"(overrides?: CallOverrides): Promise<[string]>;
 
     received(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
 
@@ -271,9 +271,9 @@ export class Ark extends Contract {
 
   "withdrawNew()"(overrides?: Overrides): Promise<ContractTransaction>;
 
-  newIjm(overrides?: CallOverrides): Promise<string>;
+  newceik(overrides?: CallOverrides): Promise<string>;
 
-  "newIjm()"(overrides?: CallOverrides): Promise<string>;
+  "newceik()"(overrides?: CallOverrides): Promise<string>;
 
   usersCount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -291,19 +291,19 @@ export class Ark extends Contract {
 
   "isOwner()"(overrides?: CallOverrides): Promise<boolean>;
 
-  setNewIjm(
-    _newIjm: string,
+  setNewceik(
+    _newceik: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  "setNewIjm(address)"(
-    _newIjm: string,
+  "setNewceik(address)"(
+    _newceik: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  oldIjm(overrides?: CallOverrides): Promise<string>;
+  oldceik(overrides?: CallOverrides): Promise<string>;
 
-  "oldIjm()"(overrides?: CallOverrides): Promise<string>;
+  "oldceik()"(overrides?: CallOverrides): Promise<string>;
 
   received(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
@@ -375,9 +375,9 @@ export class Ark extends Contract {
 
     "withdrawNew()"(overrides?: CallOverrides): Promise<void>;
 
-    newIjm(overrides?: CallOverrides): Promise<string>;
+    newceik(overrides?: CallOverrides): Promise<string>;
 
-    "newIjm()"(overrides?: CallOverrides): Promise<string>;
+    "newceik()"(overrides?: CallOverrides): Promise<string>;
 
     usersCount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -395,16 +395,16 @@ export class Ark extends Contract {
 
     "isOwner()"(overrides?: CallOverrides): Promise<boolean>;
 
-    setNewIjm(_newIjm: string, overrides?: CallOverrides): Promise<void>;
+    setNewceik(_newceik: string, overrides?: CallOverrides): Promise<void>;
 
-    "setNewIjm(address)"(
-      _newIjm: string,
+    "setNewceik(address)"(
+      _newceik: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    oldIjm(overrides?: CallOverrides): Promise<string>;
+    oldceik(overrides?: CallOverrides): Promise<string>;
 
-    "oldIjm()"(overrides?: CallOverrides): Promise<string>;
+    "oldceik()"(overrides?: CallOverrides): Promise<string>;
 
     received(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
@@ -481,9 +481,9 @@ export class Ark extends Contract {
 
     "withdrawNew()"(overrides?: Overrides): Promise<BigNumber>;
 
-    newIjm(overrides?: CallOverrides): Promise<BigNumber>;
+    newceik(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "newIjm()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "newceik()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     usersCount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -501,16 +501,16 @@ export class Ark extends Contract {
 
     "isOwner()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    setNewIjm(_newIjm: string, overrides?: Overrides): Promise<BigNumber>;
+    setNewceik(_newceik: string, overrides?: Overrides): Promise<BigNumber>;
 
-    "setNewIjm(address)"(
-      _newIjm: string,
+    "setNewceik(address)"(
+      _newceik: string,
       overrides?: Overrides
     ): Promise<BigNumber>;
 
-    oldIjm(overrides?: CallOverrides): Promise<BigNumber>;
+    oldceik(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "oldIjm()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "oldceik()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     received(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -586,9 +586,9 @@ export class Ark extends Contract {
 
     "withdrawNew()"(overrides?: Overrides): Promise<PopulatedTransaction>;
 
-    newIjm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    newceik(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "newIjm()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "newceik()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     usersCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -606,19 +606,19 @@ export class Ark extends Contract {
 
     "isOwner()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    setNewIjm(
-      _newIjm: string,
+    setNewceik(
+      _newceik: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
-    "setNewIjm(address)"(
-      _newIjm: string,
+    "setNewceik(address)"(
+      _newceik: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
-    oldIjm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    oldceik(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "oldIjm()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "oldceik()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     received(
       arg0: string,

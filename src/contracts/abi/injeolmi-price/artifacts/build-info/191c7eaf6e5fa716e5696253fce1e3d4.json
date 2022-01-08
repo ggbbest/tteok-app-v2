@@ -7,7 +7,7 @@
     "language": "Solidity",
     "sources": {
       "contracts/InjeolmiPrice.sol": {
-        "content": "pragma solidity ^0.5.6;\r\n\r\nimport \"./klaytn-contracts/math/SafeMath.sol\";\r\nimport \"./interfaces/IInjeolmi.sol\";\r\nimport \"./interfaces/IInjeolmiPool.sol\";\r\n\r\ncontract InjeolmiPrice {\r\n    using SafeMath for uint256;\r\n\r\n    IInjeolmi public ijm;\r\n    IInjeolmiPool public pool;\r\n\r\n    constructor(IInjeolmi _ijm, IInjeolmiPool _pool) public {\r\n        ijm = _ijm;\r\n        pool = _pool;\r\n    }\r\n\r\n    function price() external view returns (uint256) {\r\n        return address(pool).balance.mul(1e8).div(ijm.balanceOf(address(pool)));\r\n    }\r\n}\r\n"
+        "content": "pragma solidity ^0.5.6;\r\n\r\nimport \"./klaytn-contracts/math/SafeMath.sol\";\r\nimport \"./interfaces/IInjeolmi.sol\";\r\nimport \"./interfaces/IInjeolmiPool.sol\";\r\n\r\ncontract InjeolmiPrice {\r\n    using SafeMath for uint256;\r\n\r\n    IInjeolmi public ceik;\r\n    IInjeolmiPool public pool;\r\n\r\n    constructor(IInjeolmi _ceik, IInjeolmiPool _pool) public {\r\n        ceik = _ceik;\r\n        pool = _pool;\r\n    }\r\n\r\n    function price() external view returns (uint256) {\r\n        return address(pool).balance.mul(1e8).div(ceik.balanceOf(address(pool)));\r\n    }\r\n}\r\n"
       },
       "contracts/klaytn-contracts/math/SafeMath.sol": {
         "content": "pragma solidity ^0.5.0;\n\n/**\n * @dev Wrappers over Solidity's arithmetic operations with added overflow\n * checks.\n *\n * Arithmetic operations in Solidity wrap on overflow. This can easily result\n * in bugs, because programmers usually assume that an overflow raises an\n * error, which is the standard behavior in high level programming languages.\n * `SafeMath` restores this intuition by reverting the transaction when an\n * operation overflows.\n *\n * Using this library instead of the unchecked operations eliminates an entire\n * class of bugs, so it's recommended to use it always.\n */\nlibrary SafeMath {\n    /**\n     * @dev Returns the addition of two unsigned integers, reverting on\n     * overflow.\n     *\n     * Counterpart to Solidity's `+` operator.\n     *\n     * Requirements:\n     * - Addition cannot overflow.\n     */\n    function add(uint256 a, uint256 b) internal pure returns (uint256) {\n        uint256 c = a + b;\n        require(c >= a, \"SafeMath: addition overflow\");\n\n        return c;\n    }\n\n    /**\n     * @dev Returns the subtraction of two unsigned integers, reverting on\n     * overflow (when the result is negative).\n     *\n     * Counterpart to Solidity's `-` operator.\n     *\n     * Requirements:\n     * - Subtraction cannot overflow.\n     */\n    function sub(uint256 a, uint256 b) internal pure returns (uint256) {\n        return sub(a, b, \"SafeMath: subtraction overflow\");\n    }\n\n    /**\n     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on\n     * overflow (when the result is negative).\n     *\n     * Counterpart to Solidity's `-` operator.\n     *\n     * Requirements:\n     * - Subtraction cannot overflow.\n     *\n     * _Available since v2.4.0._\n     */\n    function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\n        require(b <= a, errorMessage);\n        uint256 c = a - b;\n\n        return c;\n    }\n\n    /**\n     * @dev Returns the multiplication of two unsigned integers, reverting on\n     * overflow.\n     *\n     * Counterpart to Solidity's `*` operator.\n     *\n     * Requirements:\n     * - Multiplication cannot overflow.\n     */\n    function mul(uint256 a, uint256 b) internal pure returns (uint256) {\n        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the\n        // benefit is lost if 'b' is also tested.\n        // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522\n        if (a == 0) {\n            return 0;\n        }\n\n        uint256 c = a * b;\n        require(c / a == b, \"SafeMath: multiplication overflow\");\n\n        return c;\n    }\n\n    /**\n     * @dev Returns the integer division of two unsigned integers. Reverts on\n     * division by zero. The result is rounded towards zero.\n     *\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\n     * `revert` opcode (which leaves remaining gas untouched) while Solidity\n     * uses an invalid opcode to revert (consuming all remaining gas).\n     *\n     * Requirements:\n     * - The divisor cannot be zero.\n     */\n    function div(uint256 a, uint256 b) internal pure returns (uint256) {\n        return div(a, b, \"SafeMath: division by zero\");\n    }\n\n    /**\n     * @dev Returns the integer division of two unsigned integers. Reverts with custom message on\n     * division by zero. The result is rounded towards zero.\n     *\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\n     * `revert` opcode (which leaves remaining gas untouched) while Solidity\n     * uses an invalid opcode to revert (consuming all remaining gas).\n     *\n     * Requirements:\n     * - The divisor cannot be zero.\n     *\n     * _Available since v2.4.0._\n     */\n    function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\n        // Solidity only automatically asserts when dividing by 0\n        require(b > 0, errorMessage);\n        uint256 c = a / b;\n        // assert(a == b * c + a % b); // There is no case in which this doesn't hold\n\n        return c;\n    }\n\n    /**\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\n     * Reverts when dividing by zero.\n     *\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\n     * invalid opcode to revert (consuming all remaining gas).\n     *\n     * Requirements:\n     * - The divisor cannot be zero.\n     */\n    function mod(uint256 a, uint256 b) internal pure returns (uint256) {\n        return mod(a, b, \"SafeMath: modulo by zero\");\n    }\n\n    /**\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\n     * Reverts with custom message when dividing by zero.\n     *\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\n     * invalid opcode to revert (consuming all remaining gas).\n     *\n     * Requirements:\n     * - The divisor cannot be zero.\n     *\n     * _Available since v2.4.0._\n     */\n    function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\n        require(b != 0, errorMessage);\n        return a % b;\n    }\n}\n"
@@ -16,7 +16,7 @@
         "content": "pragma solidity ^0.5.6;\r\n\r\ninterface IInjeolmi {\r\n\r\n    event Transfer(address indexed from, address indexed to, uint256 amount);\r\n    event Approval(address indexed owner, address indexed spender, uint256 amount);\r\n\r\n    function name() external pure returns (string memory);\r\n    function symbol() external pure returns (string memory);\r\n    function decimals() external pure returns (uint8);\r\n    function totalSupply() external pure returns (uint256);\r\n\r\n    function excluded(address user) external view returns (bool);\r\n    function _userInfo(address user) external view returns (uint256 lastBalance, uint256 lastMultiplier, uint256 resettingCount);\r\n\r\n    function balanceOf(address owner) external view returns (uint256 balance);\r\n    function transfer(address to, uint256 amount) external returns (bool success);\r\n    function transferFrom(address from, address to, uint256 amount) external returns (bool success);\r\n    function approve(address spender, uint256 amount) external returns (bool success);\r\n    function allowance(address owner, address spender) external view returns (uint256 remaining);\r\n}\r\n"
       },
       "contracts/interfaces/IInjeolmiPool.sol": {
-        "content": "pragma solidity ^0.5.6;\r\n\r\ninterface IInjeolmiPool {\r\n\r\n    event SwapToIJM(address indexed user, uint256 amount);\r\n    event SwapToKlay(address indexed user, uint256 amount);\r\n\r\n    function swapToIJM() payable external;\r\n    function swapToKlay(uint256 amount) external;\r\n}\r\n"
+        "content": "pragma solidity ^0.5.6;\r\n\r\ninterface IInjeolmiPool {\r\n\r\n    event SwapToCEIK(address indexed user, uint256 amount);\r\n    event SwapToKlay(address indexed user, uint256 amount);\r\n\r\n    function swapToCEIK() payable external;\r\n    function swapToKlay(uint256 amount) external;\r\n}\r\n"
       }
     },
     "settings": {
@@ -48,7 +48,7 @@
             {
               "constant": true,
               "inputs": [],
-              "name": "ijm",
+              "name": "ceik",
               "outputs": [
                 {
                   "name": "",
@@ -90,7 +90,7 @@
             {
               "inputs": [
                 {
-                  "name": "_ijm",
+                  "name": "_ceik",
                   "type": "address"
                 },
                 {
@@ -117,12 +117,12 @@
               "sourceMap": "157:384:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;157:384:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;222:20;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;249:25;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;399:139;;;:::i;:::-;;;;;;;;;;;;;;;;;;;222:20;;;;;;;;;;;;;:::o;249:25::-;;;;;;;;;;;;;:::o;399:139::-;439:7;466:64;501:3;;;;;;;;;;;:13;;;523:4;;;;;;;;;;;501:28;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;501:28:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;501:28:0;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;501:28:0;;;;;;;;;;;;;;;;466:30;492:3;474:4;;;;;;;;;;;466:21;;;:25;;:30;;;;:::i;:::-;:34;;:64;;;;:::i;:::-;459:71;;399:139;:::o;2159:459:3:-;2217:7;2463:1;2458;:6;2454:45;;;2487:1;2480:8;;;;2454:45;2509:9;2525:1;2521;:5;2509:17;;2553:1;2548;2544;:5;;;;;;:10;2536:56;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2610:1;2603:8;;;2159:459;;;;;:::o;3073:130::-;3131:7;3157:39;3161:1;3164;3157:39;;;;;;;;;;;;;;;;;:3;:39::i;:::-;3150:46;;3073:130;;;;:::o;3718:338::-;3804:7;3901:1;3897;:5;3904:12;3889:28;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;3889:28:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;3927:9;3943:1;3939;:5;;;;;;3927:17;;4048:1;4041:8;;;3718:338;;;;;:::o"
             },
             "methodIdentifiers": {
-              "ijm()": "110d4025",
+              "ceik()": "110d4025",
               "pool()": "16f0115b",
               "price()": "a035b1fe"
             }
           },
-          "metadata": "{\"compiler\":{\"version\":\"0.5.6+commit.b259423e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"ijm\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"pool\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"price\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"_ijm\",\"type\":\"address\"},{\"name\":\"_pool\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"contracts/InjeolmiPrice.sol\":\"InjeolmiPrice\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/InjeolmiPrice.sol\":{\"keccak256\":\"0x1d5a2be7ab43a0f666acc53e41888ff0646f21415d60e01816a6cb323468934e\",\"urls\":[\"bzzr://a4694753c657a7d35ec55cdfa802e2402b688328bdf1e9cba31d256318d3c509\"]},\"contracts/interfaces/IInjeolmi.sol\":{\"keccak256\":\"0x5d59adb16aa8a3a0a253fafb572be5c80cfaced6fcabfd20991bd2eef2e69146\",\"urls\":[\"bzzr://8b4ca22bc24607cd3030883bbc97ee01ff7f7feebe2bf6d1a0f53d6889cb1b04\"]},\"contracts/interfaces/IInjeolmiPool.sol\":{\"keccak256\":\"0x06d304a8302ff1fc970492d43b5d9b2f596e3ebd2f7cf4b09b397d5dd79022b3\",\"urls\":[\"bzzr://d6072199ae15b480fdba3bc0036c9ca14fc29933c41ef8835a3e285e34e0dadb\"]},\"contracts/klaytn-contracts/math/SafeMath.sol\":{\"keccak256\":\"0x640b6dee7a4b830bdfd52b5031a07fc2b12209f5b2e29e5d364a7d37f69d8076\",\"urls\":[\"bzzr://292843005e754e752644f767477ec5ad7a1ffc91ddb18c38b8079c62f3993cad\"]}},\"version\":1}"
+          "metadata": "{\"compiler\":{\"version\":\"0.5.6+commit.b259423e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"ceik\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"pool\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"price\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"_ceik\",\"type\":\"address\"},{\"name\":\"_pool\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"contracts/InjeolmiPrice.sol\":\"InjeolmiPrice\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/InjeolmiPrice.sol\":{\"keccak256\":\"0x1d5a2be7ab43a0f666acc53e41888ff0646f21415d60e01816a6cb323468934e\",\"urls\":[\"bzzr://a4694753c657a7d35ec55cdfa802e2402b688328bdf1e9cba31d256318d3c509\"]},\"contracts/interfaces/IInjeolmi.sol\":{\"keccak256\":\"0x5d59adb16aa8a3a0a253fafb572be5c80cfaced6fcabfd20991bd2eef2e69146\",\"urls\":[\"bzzr://8b4ca22bc24607cd3030883bbc97ee01ff7f7feebe2bf6d1a0f53d6889cb1b04\"]},\"contracts/interfaces/IInjeolmiPool.sol\":{\"keccak256\":\"0x06d304a8302ff1fc970492d43b5d9b2f596e3ebd2f7cf4b09b397d5dd79022b3\",\"urls\":[\"bzzr://d6072199ae15b480fdba3bc0036c9ca14fc29933c41ef8835a3e285e34e0dadb\"]},\"contracts/klaytn-contracts/math/SafeMath.sol\":{\"keccak256\":\"0x640b6dee7a4b830bdfd52b5031a07fc2b12209f5b2e29e5d364a7d37f69d8076\",\"urls\":[\"bzzr://292843005e754e752644f767477ec5ad7a1ffc91ddb18c38b8079c62f3993cad\"]}},\"version\":1}"
         }
       },
       "contracts/interfaces/IInjeolmi.sol": {
@@ -426,7 +426,7 @@
             {
               "constant": false,
               "inputs": [],
-              "name": "swapToIJM",
+              "name": "swapToCEIK",
               "outputs": [],
               "payable": true,
               "stateMutability": "payable",
@@ -460,7 +460,7 @@
                   "type": "uint256"
                 }
               ],
-              "name": "SwapToIJM",
+              "name": "SwapToCEIK",
               "type": "event"
             },
             {
@@ -495,11 +495,11 @@
               "sourceMap": ""
             },
             "methodIdentifiers": {
-              "swapToIJM()": "b4ccdfd0",
+              "swapToCEIK()": "b4ccdfd0",
               "swapToKlay(uint256)": "fe5a92b8"
             }
           },
-          "metadata": "{\"compiler\":{\"version\":\"0.5.6+commit.b259423e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"swapToIJM\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"swapToKlay\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"SwapToIJM\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"SwapToKlay\",\"type\":\"event\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"contracts/interfaces/IInjeolmiPool.sol\":\"IInjeolmiPool\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/interfaces/IInjeolmiPool.sol\":{\"keccak256\":\"0x06d304a8302ff1fc970492d43b5d9b2f596e3ebd2f7cf4b09b397d5dd79022b3\",\"urls\":[\"bzzr://d6072199ae15b480fdba3bc0036c9ca14fc29933c41ef8835a3e285e34e0dadb\"]}},\"version\":1}"
+          "metadata": "{\"compiler\":{\"version\":\"0.5.6+commit.b259423e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"swapToCEIK\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"swapToKlay\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"SwapToCEIK\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"SwapToKlay\",\"type\":\"event\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"contracts/interfaces/IInjeolmiPool.sol\":\"IInjeolmiPool\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/interfaces/IInjeolmiPool.sol\":{\"keccak256\":\"0x06d304a8302ff1fc970492d43b5d9b2f596e3ebd2f7cf4b09b397d5dd79022b3\",\"urls\":[\"bzzr://d6072199ae15b480fdba3bc0036c9ca14fc29933c41ef8835a3e285e34e0dadb\"]}},\"version\":1}"
         }
       },
       "contracts/klaytn-contracts/math/SafeMath.sol": {
@@ -623,7 +623,7 @@
                 {
                   "constant": false,
                   "id": 9,
-                  "name": "ijm",
+                  "name": "ceik",
                   "nodeType": "VariableDeclaration",
                   "scope": 50,
                   "src": "222:20:0",
@@ -693,7 +693,7 @@
                           "leftHandSide": {
                             "argumentTypes": null,
                             "id": 18,
-                            "name": "ijm",
+                            "name": "ceik",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 9,
@@ -708,7 +708,7 @@
                           "rightHandSide": {
                             "argumentTypes": null,
                             "id": 19,
-                            "name": "_ijm",
+                            "name": "_ceik",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 13,
@@ -790,7 +790,7 @@
                       {
                         "constant": false,
                         "id": 13,
-                        "name": "_ijm",
+                        "name": "_ceik",
                         "nodeType": "VariableDeclaration",
                         "scope": 27,
                         "src": "295:14:0",
@@ -933,7 +933,7 @@
                                 "expression": {
                                   "argumentTypes": null,
                                   "id": 40,
-                                  "name": "ijm",
+                                  "name": "ceik",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
                                   "referencedDeclaration": 9,
@@ -2452,7 +2452,7 @@
                   "anonymous": false,
                   "documentation": null,
                   "id": 160,
-                  "name": "SwapToIJM",
+                  "name": "SwapToCEIK",
                   "nodeType": "EventDefinition",
                   "parameters": {
                     "id": 159,
@@ -2595,7 +2595,7 @@
                   "implemented": false,
                   "kind": "function",
                   "modifiers": [],
-                  "name": "swapToIJM",
+                  "name": "swapToCEIK",
                   "nodeType": "FunctionDefinition",
                   "parameters": {
                     "id": 167,

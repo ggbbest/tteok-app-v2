@@ -13,14 +13,14 @@ export class FirstcomeAirdrop__factory extends ContractFactory {
     super(_abi, _bytecode, signer);
   }
 
-  deploy(_ijm: string, overrides?: Overrides): Promise<FirstcomeAirdrop> {
-    return super.deploy(_ijm, overrides || {}) as Promise<FirstcomeAirdrop>;
+  deploy(_ceik: string, overrides?: Overrides): Promise<FirstcomeAirdrop> {
+    return super.deploy(_ceik, overrides || {}) as Promise<FirstcomeAirdrop>;
   }
   getDeployTransaction(
-    _ijm: string,
+    _ceik: string,
     overrides?: Overrides
   ): TransactionRequest {
-    return super.getDeployTransaction(_ijm, overrides || {});
+    return super.getDeployTransaction(_ceik, overrides || {});
   }
   attach(address: string): FirstcomeAirdrop {
     return super.attach(address) as FirstcomeAirdrop;
@@ -40,7 +40,7 @@ const _abi = [
   {
     constant: true,
     inputs: [],
-    name: "ijm",
+    name: "ceik",
     outputs: [
       {
         name: "",
@@ -188,7 +188,7 @@ const _abi = [
   {
     inputs: [
       {
-        name: "_ijm",
+        name: "_ceik",
         type: "address",
       },
     ],

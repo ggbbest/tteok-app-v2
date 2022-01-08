@@ -12,7 +12,7 @@ export default class Home implements View {
 
     private priceDisplay: DomNode;
     private airdropDisplay: DomNode;
-    private ijmPrice: BigNumber = BigNumber.from(0);
+    private ceikPrice: BigNumber = BigNumber.from(0);
 
     private buyInput: DomNode<HTMLInputElement>;
     private buyResult: DomNode;
@@ -45,7 +45,7 @@ export default class Home implements View {
                         el(".left-container",
                             el(".price-container",
                                 el(".content",
-                                    el("h3", "인절미 가격"),
+                                    el("h3", "세이크 가격"),
                                     el(".price", (this.priceDisplay = el("span.price", "...")), " KLAY")
                                 ),
                                 el(".content",
@@ -54,8 +54,8 @@ export default class Home implements View {
                                 ),
                             ),
                             el(".form",
-                                el("h3", "클레이로 인절미 사기"),
-                                el(".caption", "인절미를 살때도 떡크노믹스 때문에 10%를 적게 받습니다."),
+                                el("h3", "클레이로 세이크 사기"),
+                                el(".caption", "세이크를 살때도 떡크노믹스 때문에 10%를 적게 받습니다."),
                                 el(".input-container",
                                     this.buyInput = el("input", {
                                         placeholder: "클레이 수량 입력",
@@ -63,13 +63,13 @@ export default class Home implements View {
                                             const value = utils.parseEther(this.buyInput.domElement.value);
                                             this.buyResult.empty().appendText(
                                                 `대략 ${utils.formatEther(
-                                                    value.mul(utils.parseEther("1")).div(this.ijmPrice).mul(9).div(10)
-                                                )} IJM`
+                                                    value.mul(utils.parseEther("1")).div(this.ceikPrice).mul(9).div(10)
+                                                )} CEIK`
                                             );
                                         }),
                                     }),
                                     this.buyResult = el(".result"),
-                                    el("button", "인절미 사기", {
+                                    el("button", "세이크 사기", {
                                         click: async () => {
                                         },
                                     })
@@ -77,21 +77,21 @@ export default class Home implements View {
                             ),
                             el(".form",
                                 el("h3", "클레이로 인절기 펄기"),
-                                el(".caption", "인절미를 펄때도 떡크노믹스 때문에 10%를 적게 받습니다."),
+                                el(".caption", "세이크를 펄때도 떡크노믹스 때문에 10%를 적게 받습니다."),
                                 el(".input-container",
                                     this.buyInput = el("input", {
-                                        placeholder: "인절미 수량 입력",
+                                        placeholder: "세이크 수량 입력",
                                         keyup: () => setTimeout(() => {
                                             const value = utils.parseEther(this.buyInput.domElement.value);
                                             this.buyResult.empty().appendText(
                                                 `대략 ${utils.formatEther(
-                                                    value.mul(utils.parseEther("1")).div(this.ijmPrice).mul(9).div(10)
-                                                )} IJM`
+                                                    value.mul(utils.parseEther("1")).div(this.ceikPrice).mul(9).div(10)
+                                                )} CEIK`
                                             );
                                         }),
                                     }),
                                     this.buyResult = el(".result"),
-                                    el("button", "인절미 펄기", {
+                                    el("button", "세이크 펄기", {
                                         click: async () => {
                                         },
                                     })

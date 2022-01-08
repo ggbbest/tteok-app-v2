@@ -13,14 +13,14 @@ export class Ark__factory extends ContractFactory {
     super(_abi, _bytecode, signer);
   }
 
-  deploy(_oldIjm: string, overrides?: Overrides): Promise<Ark> {
-    return super.deploy(_oldIjm, overrides || {}) as Promise<Ark>;
+  deploy(_oldceik: string, overrides?: Overrides): Promise<Ark> {
+    return super.deploy(_oldceik, overrides || {}) as Promise<Ark>;
   }
   getDeployTransaction(
-    _oldIjm: string,
+    _oldceik: string,
     overrides?: Overrides
   ): TransactionRequest {
-    return super.getDeployTransaction(_oldIjm, overrides || {});
+    return super.getDeployTransaction(_oldceik, overrides || {});
   }
   attach(address: string): Ark {
     return super.attach(address) as Ark;
@@ -116,7 +116,7 @@ const _abi = [
   {
     constant: true,
     inputs: [],
-    name: "newIjm",
+    name: "newceik",
     outputs: [
       {
         name: "",
@@ -182,11 +182,11 @@ const _abi = [
     constant: false,
     inputs: [
       {
-        name: "_newIjm",
+        name: "_newceik",
         type: "address",
       },
     ],
-    name: "setNewIjm",
+    name: "setNewceik",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
@@ -195,7 +195,7 @@ const _abi = [
   {
     constant: true,
     inputs: [],
-    name: "oldIjm",
+    name: "oldceik",
     outputs: [
       {
         name: "",
@@ -288,7 +288,7 @@ const _abi = [
   {
     inputs: [
       {
-        name: "_oldIjm",
+        name: "_oldceik",
         type: "address",
       },
     ],

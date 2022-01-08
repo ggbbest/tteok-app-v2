@@ -20,7 +20,7 @@ const _abi = [
   {
     constant: false,
     inputs: [],
-    name: "swapToIJM",
+    name: "swapToCEIK",
     outputs: [],
     payable: true,
     stateMutability: "payable",
@@ -54,7 +54,7 @@ const _abi = [
         type: "uint256",
       },
     ],
-    name: "SwapToIJM",
+    name: "SwapToCEIK",
     type: "event",
   },
   {

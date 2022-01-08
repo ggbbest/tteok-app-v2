@@ -23,7 +23,7 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
 interface AirdropInterface extends ethers.utils.Interface {
   functions: {
-    "ijm()": FunctionFragment;
+    "ceik()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "owner()": FunctionFragment;
     "isOwner()": FunctionFragment;
@@ -31,7 +31,7 @@ interface AirdropInterface extends ethers.utils.Interface {
     "transferOwnership(address)": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "ijm", values?: undefined): string;
+  encodeFunctionData(functionFragment: "ceik", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
     values?: undefined
@@ -47,7 +47,7 @@ interface AirdropInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
 
-  decodeFunctionResult(functionFragment: "ijm", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "ceik", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
     data: BytesLike
@@ -81,9 +81,9 @@ export class Airdrop extends Contract {
   interface: AirdropInterface;
 
   functions: {
-    ijm(overrides?: CallOverrides): Promise<[string]>;
+    ceik(overrides?: CallOverrides): Promise<[string]>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<[string]>;
+    "ceik()"(overrides?: CallOverrides): Promise<[string]>;
 
     renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>;
 
@@ -120,9 +120,9 @@ export class Airdrop extends Contract {
     ): Promise<ContractTransaction>;
   };
 
-  ijm(overrides?: CallOverrides): Promise<string>;
+  ceik(overrides?: CallOverrides): Promise<string>;
 
-  "ijm()"(overrides?: CallOverrides): Promise<string>;
+  "ceik()"(overrides?: CallOverrides): Promise<string>;
 
   renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>;
 
@@ -159,9 +159,9 @@ export class Airdrop extends Contract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    ijm(overrides?: CallOverrides): Promise<string>;
+    ceik(overrides?: CallOverrides): Promise<string>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<string>;
+    "ceik()"(overrides?: CallOverrides): Promise<string>;
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
@@ -206,9 +206,9 @@ export class Airdrop extends Contract {
   };
 
   estimateGas: {
-    ijm(overrides?: CallOverrides): Promise<BigNumber>;
+    ceik(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "ceik()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     renounceOwnership(overrides?: Overrides): Promise<BigNumber>;
 
@@ -246,9 +246,9 @@ export class Airdrop extends Contract {
   };
 
   populateTransaction: {
-    ijm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    ceik(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "ijm()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "ceik()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     renounceOwnership(overrides?: Overrides): Promise<PopulatedTransaction>;
 

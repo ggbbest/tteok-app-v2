@@ -14,18 +14,18 @@ export class InjeolmiPrice__factory extends ContractFactory {
   }
 
   deploy(
-    _ijm: string,
+    _ceik: string,
     _pool: string,
     overrides?: Overrides
   ): Promise<InjeolmiPrice> {
-    return super.deploy(_ijm, _pool, overrides || {}) as Promise<InjeolmiPrice>;
+    return super.deploy(_ceik, _pool, overrides || {}) as Promise<InjeolmiPrice>;
   }
   getDeployTransaction(
-    _ijm: string,
+    _ceik: string,
     _pool: string,
     overrides?: Overrides
   ): TransactionRequest {
-    return super.getDeployTransaction(_ijm, _pool, overrides || {});
+    return super.getDeployTransaction(_ceik, _pool, overrides || {});
   }
   attach(address: string): InjeolmiPrice {
     return super.attach(address) as InjeolmiPrice;
@@ -45,7 +45,7 @@ const _abi = [
   {
     constant: true,
     inputs: [],
-    name: "ijm",
+    name: "ceik",
     outputs: [
       {
         name: "",
@@ -87,7 +87,7 @@ const _abi = [
   {
     inputs: [
       {
-        name: "_ijm",
+        name: "_ceik",
         type: "address",
       },
       {

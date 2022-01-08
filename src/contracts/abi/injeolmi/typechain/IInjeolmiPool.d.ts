@@ -23,25 +23,25 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
 interface IInjeolmiPoolInterface extends ethers.utils.Interface {
   functions: {
-    "swapToIJM()": FunctionFragment;
+    "swapToCEIK()": FunctionFragment;
     "swapToKlay(uint256)": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "swapToIJM", values?: undefined): string;
+  encodeFunctionData(functionFragment: "swapToCEIK", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "swapToKlay",
     values: [BigNumberish]
   ): string;
 
-  decodeFunctionResult(functionFragment: "swapToIJM", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "swapToCEIK", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "swapToKlay", data: BytesLike): Result;
 
   events: {
-    "SwapToIJM(address,uint256)": EventFragment;
+    "SwapToCEIK(address,uint256)": EventFragment;
     "SwapToKlay(address,uint256)": EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "SwapToIJM"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "SwapToCEIK"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SwapToKlay"): EventFragment;
 }
 
@@ -59,9 +59,9 @@ export class IInjeolmiPool extends Contract {
   interface: IInjeolmiPoolInterface;
 
   functions: {
-    swapToIJM(overrides?: PayableOverrides): Promise<ContractTransaction>;
+    swapToCEIK(overrides?: PayableOverrides): Promise<ContractTransaction>;
 
-    "swapToIJM()"(overrides?: PayableOverrides): Promise<ContractTransaction>;
+    "swapToCEIK()"(overrides?: PayableOverrides): Promise<ContractTransaction>;
 
     swapToKlay(
       amount: BigNumberish,
@@ -74,9 +74,9 @@ export class IInjeolmiPool extends Contract {
     ): Promise<ContractTransaction>;
   };
 
-  swapToIJM(overrides?: PayableOverrides): Promise<ContractTransaction>;
+  swapToCEIK(overrides?: PayableOverrides): Promise<ContractTransaction>;
 
-  "swapToIJM()"(overrides?: PayableOverrides): Promise<ContractTransaction>;
+  "swapToCEIK()"(overrides?: PayableOverrides): Promise<ContractTransaction>;
 
   swapToKlay(
     amount: BigNumberish,
@@ -89,9 +89,9 @@ export class IInjeolmiPool extends Contract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    swapToIJM(overrides?: CallOverrides): Promise<void>;
+    swapToCEIK(overrides?: CallOverrides): Promise<void>;
 
-    "swapToIJM()"(overrides?: CallOverrides): Promise<void>;
+    "swapToCEIK()"(overrides?: CallOverrides): Promise<void>;
 
     swapToKlay(amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
@@ -102,15 +102,15 @@ export class IInjeolmiPool extends Contract {
   };
 
   filters: {
-    SwapToIJM(user: string | null, amount: null): EventFilter;
+    SwapToCEIK(user: string | null, amount: null): EventFilter;
 
     SwapToKlay(user: string | null, amount: null): EventFilter;
   };
 
   estimateGas: {
-    swapToIJM(overrides?: PayableOverrides): Promise<BigNumber>;
+    swapToCEIK(overrides?: PayableOverrides): Promise<BigNumber>;
 
-    "swapToIJM()"(overrides?: PayableOverrides): Promise<BigNumber>;
+    "swapToCEIK()"(overrides?: PayableOverrides): Promise<BigNumber>;
 
     swapToKlay(amount: BigNumberish, overrides?: Overrides): Promise<BigNumber>;
 
@@ -121,9 +121,9 @@ export class IInjeolmiPool extends Contract {
   };
 
   populateTransaction: {
-    swapToIJM(overrides?: PayableOverrides): Promise<PopulatedTransaction>;
+    swapToCEIK(overrides?: PayableOverrides): Promise<PopulatedTransaction>;
 
-    "swapToIJM()"(overrides?: PayableOverrides): Promise<PopulatedTransaction>;
+    "swapToCEIK()"(overrides?: PayableOverrides): Promise<PopulatedTransaction>;
 
     swapToKlay(
       amount: BigNumberish,

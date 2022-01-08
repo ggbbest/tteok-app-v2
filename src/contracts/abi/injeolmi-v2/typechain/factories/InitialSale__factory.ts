@@ -13,14 +13,14 @@ export class InitialSale__factory extends ContractFactory {
     super(_abi, _bytecode, signer);
   }
 
-  deploy(_ijm: string, overrides?: Overrides): Promise<InitialSale> {
-    return super.deploy(_ijm, overrides || {}) as Promise<InitialSale>;
+  deploy(_ceik: string, overrides?: Overrides): Promise<InitialSale> {
+    return super.deploy(_ceik, overrides || {}) as Promise<InitialSale>;
   }
   getDeployTransaction(
-    _ijm: string,
+    _ceik: string,
     overrides?: Overrides
   ): TransactionRequest {
-    return super.getDeployTransaction(_ijm, overrides || {});
+    return super.getDeployTransaction(_ceik, overrides || {});
   }
   attach(address: string): InitialSale {
     return super.attach(address) as InitialSale;
@@ -40,7 +40,7 @@ const _abi = [
   {
     constant: true,
     inputs: [],
-    name: "ijm",
+    name: "ceik",
     outputs: [
       {
         name: "",
@@ -54,7 +54,7 @@ const _abi = [
   {
     constant: false,
     inputs: [],
-    name: "withdrawIjm",
+    name: "withdrawceik",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
@@ -165,7 +165,7 @@ const _abi = [
   {
     inputs: [
       {
-        name: "_ijm",
+        name: "_ceik",
         type: "address",
       },
     ],
