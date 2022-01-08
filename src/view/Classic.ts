@@ -2,9 +2,9 @@ import { DomNode, el } from "@hanul/skynode";
 import { BigNumber, utils } from "ethers";
 import msg from "msg.js";
 import { View, ViewParams } from "skyrouter";
-import InjeolmiContract from "../contracts/InjeolmiContract";
-import InjeolmiPoolContract from "../contracts/InjeolmiPoolContract";
-import InjeolmiPriceContract from "../contracts/InjeolmiPriceContract";
+import CeikContract from "../contracts/CeikContract";
+import CeikPoolContract from "../contracts/CeikPoolContract";
+import CeikPriceContract from "../contracts/CeikPriceContract";
 import Wallet from "../klaytn/Wallet";
 import Layout from "./Layout";
 
@@ -29,7 +29,7 @@ export default class Classic implements View {
                 el("h1", "떡방앗간.닷컴\n클래식"),
                 el("p", `한국인의 정과 훈훈한 인심. 따뜻한 코인 커뮤니티 떡방앗간 코인 이야기.\nhttp://tteok.org으로도 접속하실 수 있습니다.\n떡방앗간 회원들은 "참새"로 불리웁니다.`),
                 el("h3", "클래식 세이크"),
-                el("img.injeolmi", { src: "/images/injeolmi-classic.png", height: "330" }),
+                el("img.ceik", { src: "/images/ceik-classic.png", height: "330" }),
                 el("h3", "세이크 클래식 떡크노믹스"),
                 el("p", "토큰 전송 시 10% 떼감 -> 9%는 홀더들한테 떡돌림, 1%는 떡방앗간에 팁으로 제공 (팁은 이벤트, 에드, 기부, 개발자 사리사욕에 쓰임)"),
                 el("p", "세이크 클래식은 클레이튼 밈 토큰입니다. 따라서 클레이튼 지갑인 카이카스 지갑이 필요합니다."),
@@ -40,10 +40,10 @@ export default class Classic implements View {
                 el(".links",
                     el("a", "세이크 카이카스 지갑에 추가(클립은 영원히 지원 계획이 없습니다.)", {
                         click: () => Wallet.addToken(
-                            InjeolmiContract.address,
+                            CeikContract.address,
                             "CEIK",
                             8,
-                            "https://raw.githubusercontent.com/tteokmill/tteok-app/main/docs/images/injeolmi.png"
+                            "https://raw.githubusercontent.com/tteokmill/tteok-app/main/docs/images/ceik.png"
                         ),
                     }), "\n",
                     el("a", "스마트 콘트랙트 주소: 0x18814b01b5cc76f7043e10fd268cc4364df47da0", {
@@ -51,7 +51,7 @@ export default class Classic implements View {
                         target: "_blank",
                     }), "\n",
                     el("a", "소스 코드", {
-                        href: "https://github.com/tteokmill/injeolmi",
+                        href: "https://github.com/tteokmill/ceik",
                         target: "_blank",
                     }), "\n",
                     el("a", "세이크 차트보기", {
@@ -81,7 +81,7 @@ export default class Classic implements View {
                     this.buyResult = el(".result"),
                     el("button", "사기", {
                         click: async () => {
-                            await InjeolmiPoolContract.swapToCEIK(
+                            await CeikPoolContract.swapToCEIK(
                                 utils.parseEther(this.buyInput.domElement.value)
                             );
                         },
@@ -104,7 +104,7 @@ export default class Classic implements View {
                     this.sellResult = el(".result"),
                     el("button", "펄기", {
                         click: async () => {
-                            await InjeolmiPoolContract.swapToKlay(
+                            await CeikPoolContract.swapToKlay(
                                 utils.parseUnits(this.sellInput.domElement.value, 8)
                             );
                         },
@@ -131,7 +131,7 @@ export default class Classic implements View {
     }
 
     private async refresh() {
-        this.ceikPrice = await InjeolmiPriceContract.price();
+        this.ceikPrice = await CeikPriceContract.price();
         if (this.container.deleted !== true) {
             this.priceDisplay.empty().appendText(utils.formatEther(this.ceikPrice));
         }

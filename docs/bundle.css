@@ -586,7 +586,7 @@ body {
   padding-top: 64px;
   padding-bottom: 32px;
 }
-.introduce-view > section .injeolmi:hover {
+.introduce-view > section .ceik:hover {
   animation: rotate_image 3s linear infinite;
   transform-origin: 50% 50%;
 }
@@ -748,7 +748,7 @@ body {
   text-align: center;
   line-height: 1.5em;
 }
-.classic-view > section .injeolmi:hover {
+.classic-view > section .ceik:hover {
   animation: rotate_image 3s linear infinite;
   transform-origin: 50% 50%;
 }

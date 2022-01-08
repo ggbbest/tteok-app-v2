@@ -16,7 +16,7 @@ export default class Junior implements View {
             el(".gnb",
                 el(".inner-gnb",
                     el("a", { click: () => ViewUtil.go("/") },
-                        el("img", { src: "/images/injeolmi.png", height: "40px" })
+                        el("img", { src: "/images/ceik.png", height: "40px" })
                     ),
                     el("h1", "세이크 쥬니어"),
                 )
@@ -24,7 +24,7 @@ export default class Junior implements View {
             el("section",
                 el("h2", "세이크 팬게임"),
                 el(".pangame-list",
-                    el("a", { href: "https://flappy-injeolmi.netlify.app/", target: "_blank" },
+                    el("a", { href: "https://flappy-ceik.netlify.app/", target: "_blank" },
                         el(".card",
                             el(".content",
                                 el("h3", "플래피 세이크"),

@@ -26,7 +26,7 @@ export default class Home implements View {
             (this.container = el(".home-view",
                 el("section",
                     el(".banner-image",
-                        el("img", { src: "/images/injeolmi.png" }),
+                        el("img", { src: "/images/ceik.png" }),
                         el("h2", "한국인의 정과 훈훈한 인심"),
                         el("h1", "떡방앗간.닷컴")
                     )
