@@ -12,7 +12,12 @@ GitHub 저장소에 Push합니다.
 https://ggbbest.github.io/tteok-app-v2/
 
 cp -r /home/dev/www/sol/tteok-app-v2/docs/* /home/dev/www/sol/www/public
+
+-- tteok-app-v2/ replace !!!!
 cd /home/dev/www/sol/www/
 npm start
 
 https://nft.c4ei.net/
+
+하드헷 안써봤는데 아마도 써봐야 할듯
+그게 아니면 지갑 연동 로그인 모듈 , 가격  CEIK 구매 판매 따로 빼야 할듯
