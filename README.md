@@ -29,3 +29,8 @@ https://nft.c4ei.net/
 - FirstcomeAirdrop:     [0xE1eFF4230c2cf812e4f5214ACe5a1888f2b1A68e](https://v2.scope.klaytn.com/account/0xE1eFF4230c2cf812e4f5214ACe5a1888f2b1A68e)
 - EachAirdrop:          [0xDF026cfefc4EE6CE729312d65c5aB21eCCf3b6C3](https://v2.scope.klaytn.com/account/0xDF026cfefc4EE6CE729312d65c5aB21eCCf3b6C3)
 
+<!-- 2022-01-09
+yarn add --dev hardhat
+yarn hardhat compile -->
+wCeik : [0xEAD262b2dFEf461CF1C5Ff003fd59DDA82f7Eaa3](https://v2.scope.klaytn.com/account/0xEAD262b2dFEf461CF1C5Ff003fd59DDA82f7Eaa3)
+wCeik pool : [0x796EA025F2714cff79C4eAaA46D0781152548330](https://v2.scope.klaytn.com/account/0x796EA025F2714cff79C4eAaA46D0781152548330)
