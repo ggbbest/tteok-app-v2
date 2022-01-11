@@ -46,3 +46,10 @@ npm start
 
 https://nft.c4ei.net/
 
+injeol address
+buy : 0xcefaBd4B6544422D74a4645CDd0a3624E36661AA
+sell : 0x9CFc059F64D664F92f3d0329844B8ccca4E5215B
+
+ceik Farm address
+buy : 0xCdA0204927fC9Ffd61D8E1Ae4C30e08b9C0e5478
+sell : 0xb69430f2a2f33482036FC9109c217ec5df50C1c4
