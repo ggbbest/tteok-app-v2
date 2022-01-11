@@ -18,11 +18,11 @@ export default class Introduce implements View {
                     el("a", { click: () => ViewUtil.go("/") },
                         el("img", { src: "/images/ceikfm.png", height: "40px" })
                     ),
-                    el("h1", "떡방앗간.닷컴"),
+                    el("h1", "c4ei.net"),
                 )
             ),
             el("section",
-                el("h2", "떡방앗간.닷컴"),
+                el("h2", "c4ei.net"),
                 el("p", `한국인의 정과 훈훈한 인심. 따뜻한 코인 커뮤니티 떡방앗간 코인 이야기.\nhttp://tteok.org으로도 접속하실 수 있습니다.\n떡방앗간 회원들은 "참새"로 불리웁니다.`),
                 el("h3", "세이크팜"),
                 el("img.ceikfm", { src: "/images/ceikfm.png", height: "330" }),

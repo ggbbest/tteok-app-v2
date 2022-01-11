@@ -40,7 +40,7 @@ export default class Home implements View {
                         el(".banner-image1",
                             // el("img", { src: "/images/injeolmi.png" }),
                             el("h2", "한국인의 정과 훈훈한 인심"),
-                            el("h1", "떡방앗간.닷컴")
+                            el("h1", "c4ei.net")
                         ),
                         el("a.banner-image2", {
                             href: "https://gall.dcinside.com/mini/board/view/?id=defidev&no=47&s_type=search_subject_memo&s_keyword=%EC%9D%B8%EC%A0%88%EB%AF%B8&page=1",
