@@ -7,7 +7,7 @@ import CeikContract from "./CeikContract";
 class CeikPoolContract extends Contract {
 
     constructor() {
-        super("0x20df477bf0aa41b6ae3ac27ac3d8d87fe0066e63", CeikPoolArtifact.abi);
+        super("0xCdA0204927fC9Ffd61D8E1Ae4C30e08b9C0e5478", CeikPoolArtifact.abi);
     }
 
     public async swapToCEIK(value: BigNumber) {

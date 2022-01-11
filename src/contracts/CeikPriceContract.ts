@@ -5,7 +5,7 @@ import Contract from "./Contract";
 class CeikPriceContract extends Contract {
 
     constructor() {
-        super("0x6E22cd771d0BBC18501F3113e01fD95947299Ca1", CeikPriceArtifact.abi);
+        super("0x907717C48ED27B7D3876Ee7B43489A381Fb199b9", CeikPriceArtifact.abi);
     }
 
     public async price(): Promise<BigNumber> {

@@ -4,7 +4,7 @@ import Contract from "./Contract";
 class AirdropContract extends Contract {
 
     constructor() {
-        super("0x280c0Ea797dCC1b1292975EB3Edb1886F89a37CD", AirdropArtifact.abi);
+        super("0x2cC37A65E30B34B7DfF32FC8300a4E93c40aE8E8", AirdropArtifact.abi);
     }
 }
 

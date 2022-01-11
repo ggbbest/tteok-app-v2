@@ -46,8 +46,8 @@ export default class Classic implements View {
                             "https://raw.githubusercontent.com/tteokmill/tteok-app/main/docs/images/ceik.png"
                         ),
                     }), "\n",
-                    el("a", "스마트 콘트랙트 주소: 0x18814b01b5cc76f7043e10fd268cc4364df47da0", {
-                        href: "https://scope.klaytn.com/token/0x18814b01b5cc76f7043e10fd268cc4364df47da0",
+                    el("a", "스마트 콘트랙트 주소: 0xb69430f2a2f33482036FC9109c217ec5df50C1c4", {
+                        href: "https://scope.klaytn.com/token/0xb69430f2a2f33482036FC9109c217ec5df50C1c4",
                         target: "_blank",
                     }), "\n",
                     el("a", "소스 코드", {
@@ -55,7 +55,7 @@ export default class Classic implements View {
                         target: "_blank",
                     }), "\n",
                     el("a", "세이크 차트보기", {
-                        href: "https://dexata.kr/?tokenA=0x18814b01b5cc76f7043e10fd268cc4364df47da0&tokenB=0x0000000000000000000000000000000000000000",
+                        href: "https://dexata.kr/?tokenA=0xb69430f2a2f33482036FC9109c217ec5df50C1c4&tokenB=0x0000000000000000000000000000000000000000",
                         target: "_blank",
                     }),
                 ),

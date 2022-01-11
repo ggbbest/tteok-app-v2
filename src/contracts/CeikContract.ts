@@ -4,7 +4,7 @@ import KIP7Contract from "./standard/KIP7Contract";
 class CeikContract extends KIP7Contract {
 
     constructor() {
-        super("0x18814b01b5cc76f7043e10fd268cc4364df47da0", CeikArtifact.abi);
+        super("0xb69430f2a2f33482036FC9109c217ec5df50C1c4", CeikArtifact.abi);
     }
 }
 
