@@ -1,7 +1,7 @@
 import { BigNumber, constants } from "ethers";
-import ArkArtifact from "./abi/ceik-v2/artifacts/contracts/Ark.sol/Ark.json";
+import ArkArtifact from "./abi/ceikfm-v2/artifacts/contracts/Ark.sol/Ark.json";
 import Contract from "./Contract";
-import CeikContract from "./CeikContract";
+import CeikFMContract from "./CeikFMContract";
 
 class ArkContract extends Contract {
 
@@ -14,7 +14,7 @@ class ArkContract extends Contract {
     }
 
     public async sendOld(): Promise<void> {
-        await CeikContract.approve(this.address, constants.MaxUint256);
+        await CeikFMContract.approve(this.address, constants.MaxUint256);
         setTimeout(async () => {
             await this.runWalletMethod("sendOld");
             setTimeout(() => {

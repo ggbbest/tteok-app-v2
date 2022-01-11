@@ -16,7 +16,7 @@ export default class Junior implements View {
             el(".gnb",
                 el(".inner-gnb",
                     el("a", { click: () => ViewUtil.go("/") },
-                        el("img", { src: "/images/ceik.png", height: "40px" })
+                        el("img", { src: "/images/ceikfm.png", height: "40px" })
                     ),
                     el("h1", "세이크 쥬니어"),
                 )
@@ -24,7 +24,7 @@ export default class Junior implements View {
             el("section",
                 el("h2", "세이크 팬게임"),
                 el(".pangame-list",
-                    el("a", { href: "https://flappy-ceik.netlify.app/", target: "_blank" },
+                    el("a", { href: "https://flappy-ceikfm.netlify.app/", target: "_blank" },
                         el(".card",
                             el(".content",
                                 el("h3", "플래피 세이크"),
@@ -33,7 +33,7 @@ export default class Junior implements View {
                             )
                         )
                     ),
-                    el("a", { href: "ceikclassic.itch.io/ultrarisk", target: "_blank" },
+                    el("a", { href: "ceikfmclassic.itch.io/ultrarisk", target: "_blank" },
                         el(".card",
                             el(".content",
                                 el("h3", "울트라리스크 피하기V1"),

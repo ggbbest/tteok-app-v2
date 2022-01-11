@@ -1,5 +1,5 @@
 import { BigNumber } from "@ethersproject/bignumber";
-import InitialSaleArtifact from "./abi/ceik-v2/artifacts/contracts/InitialSale.sol/InitialSale.json";
+import InitialSaleArtifact from "./abi/ceikfm-v2/artifacts/contracts/InitialSale.sol/InitialSale.json";
 import Contract from "./Contract";
 
 class InitialSaleContract extends Contract {

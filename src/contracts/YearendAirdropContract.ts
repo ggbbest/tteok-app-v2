@@ -1,4 +1,4 @@
-// import YearendAirdropArtifact from "./abi/ceik-v2/artifacts/contracts/YearendAirdrop.sol/YearendAirdrop.json";
+// import YearendAirdropArtifact from "./abi/ceikfm-v2/artifacts/contracts/YearendAirdrop.sol/YearendAirdrop.json";
 // import Contract from "./Contract";
 
 // class YearendAirdropContract extends Contract {

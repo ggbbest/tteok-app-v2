@@ -24,7 +24,7 @@ export default class AddSparrowNFT implements View {
             el(".gnb",
                 el(".inner-gnb",
                     el("a", { click: () => ViewUtil.go("/") },
-                        el("img", { src: "/images/ceik.png", height: "40px" })
+                        el("img", { src: "/images/ceikfm.png", height: "40px" })
                     ),
                     el("h1", "참새 NFT"),
                 )

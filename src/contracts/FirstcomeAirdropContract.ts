@@ -1,5 +1,5 @@
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
-import FirstcomeAirdropArtifact from "./abi/ceik/artifacts/contracts/FirstcomeAirdrop.sol/FirstcomeAirdrop.json";
+import FirstcomeAirdropArtifact from "./abi/ceikfm/artifacts/contracts/FirstcomeAirdrop.sol/FirstcomeAirdrop.json";
 import Contract from "./Contract";
 
 class FirstcomeAirdropContract extends Contract {
