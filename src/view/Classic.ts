@@ -32,7 +32,7 @@ export default class Classic implements View {
                 // el("img.ceikfm", { src: "/images/ceikfm-classic.png", height: "330" }),
                 el("h3", "세이크팜 품앗이"),
                 el("p", "토큰 전송 시 10% 차감→9% 홀더분배,1% 개발자팁"),
-                el("p", "세이크팜 은 클레이튼 밈 토큰입니다. 클레이튼 지갑인 카이카스 지갑이 필요합니다."),
+                el("p", "세이크팜 은 클레이튼 밈 토큰입니다. 카이카스 지갑이 필요합니다."),
                 el("a", "카이카스 지갑 다운로드", {
                     href: "https://chrome.google.com/webstore/detail/kaikas/jblndlipeogpafnldhgmapagcccfchpi",
                     target: "_blank",
@@ -50,16 +50,16 @@ export default class Classic implements View {
                     //     href: "https://dexata.kr/?tokenA=0xb69430f2a2f33482036FC9109c217ec5df50C1c4&tokenB=0x0000000000000000000000000000000000000000",
                     //     target: "_blank",
                     // }),
+                    el("a", "세이크팜 카이카스 지갑에 추가(클립 불가)", {
+                        click: () => Wallet.addToken(
+                            CeikFMContract.address,
+                            "CFM",
+                            8,
+                            "https://s.klayswap.com/img/token/ic-ceik.png"
+                        ),
+                        style: "padding: 10px 10px 10px 10px;"
+                    }),
                 ),
-                el("a", "세이크팜 카이카스 지갑에 추가(클립 불가)", {
-                    click: () => Wallet.addToken(
-                        CeikFMContract.address,
-                        "CFM",
-                        8,
-                        "https://s.klayswap.com/img/token/ic-ceik.png"
-                    ),
-                    style: "padding: 10px 10px 10px 10px;"
-                }),
                 el("a", "스마트 콘트랙트 주소: 0xb69430f2a2f33482036FC9109c217ec5df50C1c4", {
                     href: "https://v2.scope.klaytn.com/token/0xb69430f2a2f33482036FC9109c217ec5df50C1c4",
                     target: "_blank",

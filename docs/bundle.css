@@ -208,7 +208,7 @@ body {
 }
 .dialogue.alert > .button-container > button {
   background-color: transparent;
-  color: #F7DEA5;
+  color: #d4ffff;
   padding: 8px 16px;
   font-size: 0.75rem;
   border-radius: 4px;
@@ -219,7 +219,7 @@ body {
 }
 .dialogue.alert > .button-container > button:active {
   color: white;
-  background-color: #F7DEA5;
+  background-color: #d4ffff;
 }
 .dialogue.confirm {
   position: relative;
@@ -248,7 +248,7 @@ body {
 }
 .dialogue.confirm > .button-container > button {
   background-color: transparent;
-  color: #F7DEA5;
+  color: #d4ffff;
   padding: 8px 16px;
   font-size: 0.75rem;
   border-radius: 4px;
@@ -259,7 +259,7 @@ body {
 }
 .dialogue.confirm > .button-container > button:active {
   color: white;
-  background-color: #F7DEA5;
+  background-color: #d4ffff;
 }
 .dialogue.prompt {
   position: relative;
@@ -294,10 +294,10 @@ body {
   border: 1px solid #e4e8eb;
 }
 .dialogue.prompt > .input-container > input:hover {
-  border: 1px solid #F7DEA5;
+  border: 1px solid #d4ffff;
 }
 .dialogue.prompt > .input-container > input:focus {
-  border: 1px solid #F7DEA5;
+  border: 1px solid #d4ffff;
 }
 .dialogue.prompt > .button-container {
   display: flex;
@@ -306,7 +306,7 @@ body {
 }
 .dialogue.prompt > .button-container > button {
   background-color: transparent;
-  color: #F7DEA5;
+  color: #d4ffff;
   padding: 8px 16px;
   font-size: 0.75rem;
   border-radius: 4px;
@@ -317,7 +317,7 @@ body {
 }
 .dialogue.prompt > .button-container > button:active {
   color: white;
-  background-color: #F7DEA5;
+  background-color: #d4ffff;
 }
 .layout {
   width: 100%;
@@ -363,7 +363,7 @@ body {
   justify-content: space-around;
 }
 .home-view > .gnb > .item-container > a:hover {
-  color: #0000FF;
+  color: #6b6bfd;
 }
 .home-view > section {
   max-width: 1240px;
@@ -436,7 +436,7 @@ body {
   justify-content: space-around;
   width: 100%;
   height: 140px;
-  background-color: #F7DEA5;
+  background-color: #d4ffff;
   padding-top: 8px;
   padding-bottom: 8px;
 }
@@ -501,7 +501,7 @@ body {
 }
 .home-view > section > .content-container > .right-container > .connect-wallet > button {
   width: 100%;
-  background-color: #F7DEA5;
+  background-color: #d4ffff;
   font-family: 'ChosunGs';
   display: block;
   padding: 15px 0;
@@ -541,13 +541,13 @@ body {
   color: black;
 }
 .home-view > section > .content-container > .right-container > .community > a:hover {
-  color: #0000FF;
+  color: #6b6bfd;
 }
 .introduce-view {
   line-height: 1.5em;
 }
 .introduce-view > .gnb {
-  background-color: #F7DEA5;
+  background-color: #d4ffff;
   height: 52px;
   font-size: 18px;
   display: flex;
@@ -608,7 +608,7 @@ body {
   font-size: 18px;
   display: flex;
   align-items: center;
-  background-color: #F7DEA5;
+  background-color: #d4ffff;
 }
 .junior-view > .gnb > .inner-gnb {
   display: flex;
@@ -683,21 +683,21 @@ body {
 .classic-view > section > h1 {
   font-size: 3rem;
   text-align: center;
-  color: #F7DEA5;
+  color: #d4ffff;
   -webkit-text-stroke: 0.2px #1f1f1f;
 }
 .classic-view > section > h2 {
   font-size: 2rem;
   margin-top: 18px;
   text-align: center;
-  color: #F7DEA5;
+  color: #d4ffff;
   -webkit-text-stroke: 0.2px #1f1f1f;
 }
 .classic-view > section > h3 {
   font-size: 1rem;
   margin-top: 18px;
   text-align: center;
-  color: #be9f64;
+  color: #81f0ff;
   -webkit-text-stroke: 0.2px #1f1f1f;
 }
 .classic-view > section h4 {
@@ -738,7 +738,7 @@ body {
   }
 }
 .classic-view > section .links {
-  line-height: 0.5em;
+  line-height: 2em;
 }
 .classic-view > section .links .danger {
   font-size: 0.875rem;
@@ -799,7 +799,7 @@ body {
   width: 90%;
   height: 36px;
   font-size: 12px;
-  background-color: #F7DEA5;
+  background-color: #d4ffff;
   border-radius: 8px;
   border: 2px solid black;
 }
@@ -808,11 +808,11 @@ body {
 }
 .classic-view > section .form > button {
   font-size: 0.875rem;
-  width: 80%;
+  width: 90%;
   margin-top: 8px;
   height: 32px;
   border: 2px solid black;
-  background-color: #be9f64;
+  background-color: #81f0ff;
   display: flex;
   justify-content: center;
   text-align: center;
@@ -833,7 +833,7 @@ body {
   animation-iteration-count: infinite;
 }
 .sparrow-nft-view > .gnb {
-  background-color: #F7DEA5;
+  background-color: #d4ffff;
   height: 52px;
   font-size: 18px;
   display: flex;
@@ -942,7 +942,7 @@ body {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 .add-sparrow-nft-view > .gnb {
-  background-color: #F7DEA5;
+  background-color: #d4ffff;
   height: 52px;
   font-size: 18px;
   display: flex;
