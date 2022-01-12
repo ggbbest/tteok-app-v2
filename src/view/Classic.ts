@@ -38,24 +38,10 @@ export default class Classic implements View {
                     target: "_blank",
                     style: "padding: 10px 10px 10px 10px;"
                 }),
-                el("p", "&nbsp;"),
+                // el("p", "&nbsp;"),
                 el(".links",
-                    el("a", "세이크팜 카이카스 지갑에 추가(클립 불가)", {
-                        click: () => Wallet.addToken(
-                            CeikFMContract.address,
-                            "CFM",
-                            8,
-                            "https://s.klayswap.com/img/token/ic-ceik.png"
-                        ),
-                        style: "padding: 10px 10px 10px 10px;"
-                    }), 
-                    el("p", "&nbsp;"),
-                    el("a", "스마트 콘트랙트 주소: 0xb69430f2a2f33482036FC9109c217ec5df50C1c4", {
-                        href: "https://v2.scope.klaytn.com/token/0xb69430f2a2f33482036FC9109c217ec5df50C1c4",
-                        target: "_blank",
-                        style: "padding-top: 10px 10px 10px 10px;"
-                    }), 
-                    el("p", "&nbsp;"),
+                    // el("p", "&nbsp;"),
+                    // el("p", "&nbsp;"),
                     // el("a", "소스 코드", {
                     //     href: "https://github.com/tteokmill/ceikfm",
                     //     target: "_blank",
@@ -65,6 +51,20 @@ export default class Classic implements View {
                     //     target: "_blank",
                     // }),
                 ),
+                el("a", "세이크팜 카이카스 지갑에 추가(클립 불가)", {
+                    click: () => Wallet.addToken(
+                        CeikFMContract.address,
+                        "CFM",
+                        8,
+                        "https://s.klayswap.com/img/token/ic-ceik.png"
+                    ),
+                    style: "padding: 10px 10px 10px 10px;"
+                }),
+                el("a", "스마트 콘트랙트 주소: 0xb69430f2a2f33482036FC9109c217ec5df50C1c4", {
+                    href: "https://v2.scope.klaytn.com/token/0xb69430f2a2f33482036FC9109c217ec5df50C1c4",
+                    target: "_blank",
+                    style: "padding-top: 10px 10px 10px 10px;"
+                }), 
                 el("p.warning", "세이크팜을 본인의 지갑에 전송하지 마세요. 세이크팜 을 모두 잃어버릴 수 있습니다!"),
                 el(".card",
                     el("h5", "세이크팜 가격"),
