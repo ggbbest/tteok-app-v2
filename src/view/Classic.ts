@@ -26,11 +26,11 @@ export default class Classic implements View {
         Layout.current.title = "세이크팜";
         Layout.current.content.append(this.container = el(".classic-view",
             el("section",
-                el("h1", "c4ei.net\n"),
+                // el("h1", "c4ei.net\n"),
                 // el("p", `한국인의 정과 훈훈한 인심. 따뜻한 코인 커뮤니티 떡방앗간 코인 이야기.\nhttp://tteok.org으로도 접속하실 수 있습니다.\n떡방앗간 회원들은 "참새"로 불리웁니다.`),
-                el("h3", " 세이크팜"),
+                // el("h3", " 세이크팜"),
                 // el("img.ceikfm", { src: "/images/ceikfm-classic.png", height: "330" }),
-                // el("h3", "세이크팜  품앗이"),
+                el("h3", "세이크팜  품앗이"),
                 el("p", "토큰 전송 시 10% 차감 -> 9% 홀더분배, 1% 개발자팁"),
                 el("p", "세이크팜 은 클레이튼 밈 토큰입니다. 따라서 클레이튼 지갑인 카이카스 지갑이 필요합니다."),
                 el("a", "카이카스 지갑 다운로드", {
