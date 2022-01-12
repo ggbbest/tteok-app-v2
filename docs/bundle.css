@@ -165,14 +165,7 @@ input {
   clear: both;
   visibility: hidden;
 }
-@font-face {
-  font-family: 'ChosunGs';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGs.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
 body {
-  font-family: ChosunGs;
   text-align: center;
 }
 .popup-background {
@@ -552,7 +545,6 @@ body {
 }
 .introduce-view {
   line-height: 1.5em;
-  /* background: url("/images/banner.jpg"); */
 }
 .introduce-view > .gnb {
   background-color: #F7DEA5;
@@ -802,11 +794,11 @@ body {
   animation-iteration-count: infinite;
 }
 .classic-view > section .form > input {
-  min-width: 600px;
+  min-width: 450px;
   padding: 4px;
-  width: 100%;
-  height: 48px;
-  font-size: 14px;
+  width: 90%;
+  height: 36px;
+  font-size: 12px;
   background-color: #F7DEA5;
   border-radius: 8px;
   border: 2px solid black;
@@ -816,7 +808,7 @@ body {
 }
 .classic-view > section .form > button {
   font-size: 0.875rem;
-  width: 100%;
+  width: 80%;
   margin-top: 8px;
   height: 32px;
   border: 2px solid black;
