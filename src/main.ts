@@ -11,11 +11,12 @@ import AddSparrowNFT from "./view/sparrowNFT/AddSparrowNFT";
 (async () => {
 
     SkyRouter.route("**", Layout);
-    SkyRouter.route("", Home);
+    // SkyRouter.route("", Home);
+    SkyRouter.route("", Classic);
 
     SkyRouter.route("introduce", Introduce);
     SkyRouter.route("junior", Junior);
-    SkyRouter.route("classic", Classic);
+    // SkyRouter.route("classic", Classic);
 
     SkyRouter.route("sparrow-nft", SparrowNFT);
     SkyRouter.route("sparrow-nft/add", AddSparrowNFT);

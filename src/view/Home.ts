@@ -73,7 +73,7 @@ export default class Home implements View {
                             ),
                             el(".price-container",
                                 el(".content",
-                                    el("h3", "떡크노믹스 미반영 물량"),
+                                    el("h3", "품앗이 미반영 물량"),
                                     el(".price", (this.initialSaleDisplay = el("span.price", "...")), " IJM"),
                                 ),
                                 el(".content",
@@ -98,8 +98,8 @@ export default class Home implements View {
                             ),
                             el(".form",
                                 el("h3", "클레이로 인절미 사기"),
-                                el(".caption", "현재 하드포크 기간이어서 떡크노믹스 반영되지 않고 액수 그대로 구매 가능함"),
-                                el(".caption", "떡크노믹스 미반영 물량에서 사는거고 지갑당 최대 5만개(7218.72766230683545 KLAY)까지 구매 가능"),
+                                el(".caption", "현재 하드포크 기간이어서 품앗이 반영되지 않고 액수 그대로 구매 가능함"),
+                                el(".caption", "품앗이 미반영 물량에서 사는거고 지갑당 최대 5만개(7218.72766230683545 KLAY)까지 구매 가능"),
                                 el(".input-container",
                                     this.buyInput = el("input", {
                                         placeholder: "클레이 수량 입력",
@@ -129,7 +129,7 @@ export default class Home implements View {
                             ),
                             /*el(".form",
                                 el("h3", "클레이로 인절기 펄기"),
-                                el(".caption", "인절미를 펄때도 떡크노믹스 때문에 10%를 적게 받습니다."),
+                                el(".caption", "인절미를 펄때도 품앗이 때문에 10%를 적게 받습니다."),
                                 el(".input-container",
                                     this.buyInput = el("input", {
                                         placeholder: "인절미 수량 입력",

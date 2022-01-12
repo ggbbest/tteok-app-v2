@@ -30,30 +30,30 @@ export default class Classic implements View {
                 // el("p", `한국인의 정과 훈훈한 인심. 따뜻한 코인 커뮤니티 떡방앗간 코인 이야기.\nhttp://tteok.org으로도 접속하실 수 있습니다.\n떡방앗간 회원들은 "참새"로 불리웁니다.`),
                 el("h3", " 세이크팜"),
                 // el("img.ceikfm", { src: "/images/ceikfm-classic.png", height: "330" }),
-                // el("h3", "세이크팜  떡크노믹스"),
-                el("p", "토큰 전송 시 10% 떼감 -> 9%는 홀더들한테 떡돌림, 1%는 떡방앗간에 팁으로 제공 (팁은 이벤트, 에드, 기부, 개발자 사리사욕에 쓰임)"),
+                // el("h3", "세이크팜  품앗이"),
+                el("p", "토큰 전송 시 10% 차감 -> 9% 홀더분배, 1% 개발자팁"),
                 el("p", "세이크팜 은 클레이튼 밈 토큰입니다. 따라서 클레이튼 지갑인 카이카스 지갑이 필요합니다."),
                 el("a", "카이카스 지갑 다운로드", {
                     href: "https://chrome.google.com/webstore/detail/kaikas/jblndlipeogpafnldhgmapagcccfchpi",
                     target: "_blank",
                 }),
                 el(".links",
-                    el("a", "세이크팜 카이카스 지갑에 추가(클립은 영원히 지원 계획이 없습니다.)", {
+                    el("a", "세이크팜 카이카스 지갑에 추가(클립 불가)", {
                         click: () => Wallet.addToken(
                             CeikFMContract.address,
                             "CFM",
                             8,
-                            "https://raw.githubusercontent.com/tteokmill/tteok-app/main/docs/images/ceikfm.png"
+                            "https://s.klayswap.com/img/token/ic-ceik.png"
                         ),
                     }), "\n",
                     el("a", "스마트 콘트랙트 주소: 0xb69430f2a2f33482036FC9109c217ec5df50C1c4", {
-                        href: "https://scope.klaytn.com/token/0xb69430f2a2f33482036FC9109c217ec5df50C1c4",
+                        href: "https://v2.scope.klaytn.com/token/0xb69430f2a2f33482036FC9109c217ec5df50C1c4",
                         target: "_blank",
                     }), "\n",
-                    el("a", "소스 코드", {
-                        href: "https://github.com/tteokmill/ceikfm",
-                        target: "_blank",
-                    }), "\n",
+                    // el("a", "소스 코드", {
+                    //     href: "https://github.com/tteokmill/ceikfm",
+                    //     target: "_blank",
+                    // }), "\n",
                     el("a", "세이크팜 차트보기", {
                         href: "https://dexata.kr/?tokenA=0xb69430f2a2f33482036FC9109c217ec5df50C1c4&tokenB=0x0000000000000000000000000000000000000000",
                         target: "_blank",
@@ -61,11 +61,11 @@ export default class Classic implements View {
                 ),
                 el("p.warning", "절대 본인의 세이크팜 을 본인의 지갑에 전송하지 마세요. 세이크팜 을 모두 잃어버릴 수 있습니다!"),
                 el(".card",
-                    el("h5", "세이크팜  가격"),
+                    el("h5", "세이크팜 가격"),
                     el("h6", (this.priceDisplay = el("span.price", "...")), " KLAY\n"),
                 ),
-                el("h3", "클레이로 세이크팜  사기"),
-                el("p", "세이크팜 을 살때도 떡크노믹스 때문에 10%를 적게 받습니다."),
+                el("h3", "클레이로 세이크팜 구매하기"),
+                el("p", "세이크팜 을 살때도 품앗이 때문에 10%를 적게 받습니다."),
                 el(".form",
                     this.buyInput = el("input", {
                         placeholder: "KLAY 수량",
@@ -79,7 +79,7 @@ export default class Classic implements View {
                         }),
                     }),
                     this.buyResult = el(".result"),
-                    el("button", "사기", {
+                    el("button", "구매", {
                         click: async () => {
                             await CeikFMPoolContract.swapToCFM(
                                 utils.parseEther(this.buyInput.domElement.value)
@@ -87,8 +87,8 @@ export default class Classic implements View {
                         },
                     })
                 ),
-                el("h3", "세이크팜  클레이로 팔기"),
-                el("p", "세이크팜 을 펄때도 떡크노믹스 때문에 10%를 적게 받습니다."),
+                el("h3", "세이크팜 클레이로 팔기"),
+                el("p", "세이크팜을 팔때도 품앗이 때문에 10%를 적게 받습니다."),
                 el(".form",
                     this.sellInput = el("input", {
                         placeholder: "세이크팜 수량",
@@ -112,7 +112,7 @@ export default class Classic implements View {
                 ),
                 el("footer",
                     el("a", "트위터", {
-                        href: "https://twitter.com/tteokclassic",
+                        href: "https://twitter.com/C4eiNet",
                         target: "_blank",
                     }), 
                     // "\n",

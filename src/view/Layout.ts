@@ -12,13 +12,13 @@ export default class Layout implements View {
         BodyNode.append(
             (this.container = el(".layout",
                 el("main", (this.content = el(".content"))),
-                el("footer", el("", "ⓒ 영재와 떡방앗간 참새들"))
+                el("footer", el("", "nft.c4ei.net"))
             ))
         );
     }
 
     public set title(title: string) {
-        document.title = `${title} | 떡방앗간 닷컴 `;
+        document.title = `${title} | nft.c4ei.net `;
     }
 
     public changeParams(params: ViewParams, uri: string): void { }
